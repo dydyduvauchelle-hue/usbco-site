@@ -1,1 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>USBCO — Matchs à venir</title>
+  <meta name="description" content="Calendrier et résultats de l’USBCO." />
+  <link rel="icon" type="image/png" href="./assets/favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-900">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-3">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <img src="./assets/logo-usbco.png" alt="USBCO"
+             class="h-12 w-12 rounded-lg border bg-white object-contain p-1 group-hover:opacity-90 transition" />
+        <span class="font-bold text-xl text-red-700 group-hover:text-red-800 transition">US Boulogne Côte d’Opale</span>
+      </a>
+      <nav class="flex gap-6 items-center">
+        <a href="matchs.html" class="text-red-700 font-bold">Matchs</a>
+        <a href="actus.html" class="hover:text-red-600">Actus</a>
+        <a href="billetterie.html" class="hover:text-red-600">Billetterie</a>
+        <a href="boutique.html" class="hover:text-red-600">Boutique</a>
+        <a href="club.html" class="hover:text-red-600">Le club</a>
+      </nav>
+    </div>
+  </header>
 
+  <!-- Hero -->
+  <section class="relative h-[40vh] flex items-center justify-center text-center text-white">
+    <img src="./assets/hero.jpg" alt="Matchs USBCO" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-black/50"></div>
+    <h1 class="relative z-10 text-4xl md:text-5xl font-bold">Matchs à venir</h1>
+  </section>
+
+  <!-- Liste des matchs -->
+  <main class="py-16 max-w-7xl mx-auto px-4">
+    <div id="matches-grid" class="grid md:grid-cols-2 gap-6"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-6">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center">
+      <p>© 2025 US Boulogne Côte d’Opale. Tous droits réservés.</p>
+      <div class="flex gap-4 mt-4 sm:mt-0">
+        <a href="#" target="_blank">Facebook</a>
+        <a href="#" target="_blank">Twitter</a>
+        <a href="#" target="_blank">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script>
+    const matches = [
+      { date: "Ven 30 Août", comp: "National", home: true,  opponent: "FC Rouen",     hour: "19:30", venue: "Stade de la Libération" },
+      { date: "Ven 6 Sept",  comp: "National", home: false, opponent: "Red Star",     hour: "20:45", venue: "Stade Bauer" },
+      { date: "Mer 11 Sept", comp: "Coupe de France", home: true, opponent: "US Dunkerque", hour: "18:30", venue: "Stade de la Libération" },
+      { date: "Sam 20 Sept", comp: "National", home: true,  opponent: "Châteauroux",  hour: "19:00", venue: "Stade de la Libération" },
+      { date: "Ven 27 Sept", comp: "National", home: false, opponent: "Nancy",        hour: "20:00", venue: "Stade Marcel Picot" },
+    ];
+
+    const grid = document.getElementById("matches-grid");
+    matches.forEach(m => {
+      grid.innerHTML += `
+        <div class="border rounded-lg p-6 shadow hover:shadow-lg transition bg-white">
+          <h2 class="text-2xl font-bold text-red-700 mb-2">USBCO vs ${m.opponent}</h2>
+          <p class="text-gray-700">${m.comp}</p>
+          <p class="text-gray-700">${m.date} — ${m.hour}</p>
+          <p class="text-sm text-gray-500 mt-2">${m.home ? "🏟️ Domicile" : "🚌 Extérieur"} — ${m.venue}</p>
+          <a href="billetterie.html" class="inline-block mt-4 px-4 py-2 rounded-md border border-red-700 text-red-700 hover:bg-red-700 hover:text-white">Billets</a>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>
