@@ -1,0 +1,23 @@
+[
+  {
+    "date": "2025-08-30",
+    "time": "19:30",
+    "opponent": "FC Rouen",
+    "home": true,
+    "venue": "Stade de la Libération"
+  },
+  {
+    "date": "2025-09-06",
+    "time": "20:45",
+    "opponent": "Red Star",
+    "home": false,
+    "venue": "Stade Bauer"
+  },
+  {
+    "date": "2025-09-11",
+    "time": "18:30",
+    "opponent": "US Dunkerque",
+    "home": true,
+    "venue": "Stade de la Libération"
+  }
+]
