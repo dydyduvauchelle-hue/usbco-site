@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>USBCO — Site officiel (démo)</title>
+  <meta name="description" content="US Boulogne Côte d'Opale : matchs, actus, billetterie, boutique."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { colors: { primary: "#D91E2B", dark: "#0A0A0A" }}}}
+  </script>
+  <style>
+    * { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    .container { max-width: 1140px; }
+    .card { border: 1px solid rgba(0,0,0,0.08); border-radius: 1rem; background: white; }
+    .shadow-soft { box-shadow: 0 6px 24px rgba(0,0,0,.08); }
+  </style>
+</head>
+<body class="bg-white text-black">
+  <!-- Top strip -->
+  <div class="w-full bg-black text-white text-xs">
+    <div class="container mx-auto px-4 py-2 flex items-center justify-between">
+      <span class="tracking-widest">US BOULOGNE CÔTE D'OPALE</span>
+      <div class="hidden sm:flex gap-4 opacity-80">
+        <a href="#store" class="hover:opacity-100">Boutique</a>
+        <a href="#tickets" class="hover:opacity-100">Billetterie</a>
+        <a href="#contact" class="hover:opacity-100">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b">
+    <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="assets/logo-usbco.png" alt="USBCO" class="h-9 w-9 rounded-md border bg-white"/>
+        <span class="font-semibold">USBCO</span>
+      </div>
+      <div class="hidden md:flex gap-6 text-sm">
+        <a href="#matches" class="hover:text-black/70">Matchs</a>
+        <a href="#news" class="hover:text-black/70">Actus</a>
+        <a href="#club" class="hover:text-black/70">Club</a>
+        <a href="#store" class="hover:text-black/70">Boutique</a>
+        <a href="#tickets" class="hover:text-black/70">Billetterie</a>
+      </div>
+      <a href="#tickets" class="hidden sm:inline-flex px-4 py-2 rounded-md text-white" style="background:#D91E2B">Billetterie</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative">
+    <div class="container mx-auto px-4 py-12 md:py-16 grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h1 class="text-4xl md:text-5xl font-bold leading-tight">
+          Ensemble, plus haut. <span class="text-primary">Allez Boulogne !</span>
+        </h1>
+        <p class="mt-4 text-black/70">Site moderne pour suivre l'USBCO : calendrier, actus, billetterie, boutique. Design rouge & noir.</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="#tickets" class="px-5 py-3 rounded-md text-white shadow-soft" style="background:#D91E2B">Prendre ma place</a>
+          <a href="#store" class="px-5 py-3 rounded-md border">Boutique officielle</a>
+        </div>
+      </div>
+      <div class="relative rounded-2xl overflow-hidden shadow-soft">
+        <img src="assets/hero.jpg" alt="Stade de la Libération" class="w-full h-auto"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- Matchs -->
+  <section id="matches" class="py-10 bg-neutral-50 border-t">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold">Matchs à venir</h2>
+        <a href="#" class="px-3 py-2 rounded-md border">Calendrier complet</a>
+      </div>
+      <div id="matches-grid" class="grid md:grid-cols-3 gap-4"></div>
+    </div>
+  </section>
+
+  <!-- Actus -->
+  <section id="news" class="py-12">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold">Dernières actus</h2>
+        <a href="#" class="px-3 py-2 rounded-md border">Voir toutes</a>
+      </div>
+      <div id="news-grid" class="grid md:grid-cols-3 gap-4"></div>
+    </div>
+  </section>
+
+  <!-- Tickets + Store -->
+  <section id="tickets" class="py-12 bg-black text-white">
+    <div class="container mx-auto px-4 grid md:grid-cols-2 gap-6">
+      <div class="card bg-white/5 border-white/10 p-6">
+        <h3 class="text-xl font-semibold mb-2">Billetterie</h3>
+        <p class="text-white/80">Réservez vos places pour les prochains matchs au Stade de la Libération.</p>
+        <a href="#" class="inline-block mt-4 px-4 py-2 rounded-md text-white border border-white/30 hover:bg-white hover:text-black">Accéder à la billetterie</a>
+      </div>
+      <div id="store" class="card bg-white/5 border-white/10 p-6">
+        <h3 class="text-xl font-semibold mb-2">Boutique officielle</h3>
+        <p class="text-white/80">Maillots, écharpes, training : soutenez le club en rouge et noir.</p>
+        <a href="#" class="inline-block mt-4 px-4 py-2 rounded-md bg-white text-black">Visiter la boutique</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Club -->
+  <section id="club" class="py-12">
+    <div class="container mx-auto px-4 grid lg:grid-cols-2 gap-8 items-start">
+      <div>
+        <h2 class="text-2xl font-bold">Le club</h2>
+        <p class="mt-4 text-black/70">US Boulogne Côte d'Opale : un club historique avec une ambition moderne. Cette démo est prête à recevoir vos actus et votre calendrier.</p>
+        <ul class="mt-4 space-y-2 list-disc list-inside text-black/80">
+          <li>Site statique (super simple à déployer)</li>
+          <li>Design responsive</li>
+          <li>Sections modifiables en quelques clics</li>
+        </ul>
+      </div>
+      <div class="card p-6">
+        <h3 class="text-lg font-semibold mb-2">Informations pratiques</h3>
+        <div class="text-black/70">Stade de la Libération, Boulogne-sur-Mer</div>
+        <div id="contact" class="text-black/70 mt-1">contact@usbco.fr (exemple)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t">
+    <div class="container mx-auto px-4 py-8 grid md:grid-cols-4 gap-6 text-sm">
+      <div>
+        <div class="flex items-center gap-2">
+          <img src="assets/logo-usbco.png" class="h-8 w-8 rounded-md bg-white" alt="USBCO"/>
+          <span class="font-semibold">USBCO</span>
+        </div>
+        <p class="mt-3 text-black/60">Site vitrine moderne — version démo. Contenus et images à intégrer.</p>
+      </div>
+      <div>
+        <div class="font-semibold mb-2">Club</div>
+        <ul class="space-y-1 text-black/70">
+          <li><a href="#club">Histoire</a></li>
+          <li><a href="#club">Organisation</a></li>
+          <li>Centre de formation</li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-semibold mb-2">Infos</div>
+        <ul class="space-y-1 text-black/70">
+          <li><a href="#tickets">Billetterie</a></li>
+          <li><a href="#store">Boutique</a></li>
+          <li>Mentions légales</li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-semibold mb-2">Suivre le club</div>
+        <div class="flex gap-3">
+          <a href="#" class="opacity-80 hover:opacity-100">X/Twitter</a>
+          <a href="#" class="opacity-80 hover:opacity-100">Facebook</a>
+          <a href="#" class="opacity-80 hover:opacity-100">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t text-xs text-black/60 py-4">
+      <div class="container mx-auto px-4 flex items-center justify-between">
+        <span>© <script>document.write(new Date().getFullYear())</script> USBCO</span>
+        <span>Design rouge & noir</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const matches = [
+      { date: "Sam 23 Août", comp: "National", home: true, opponent: "USL Dunkerque", hour: "19:00", venue: "Stade de la Libération" },
+      { date: "Ven 29 Août", comp: "National", home: false, opponent: "Red Star", hour: "20:45", venue: "Stade Bauer" },
+      { date: "Ven 5 Sept", comp: "Coupe de France", home: true, opponent: "VAFC", hour: "18:30", venue: "Stade de la Libération" }
+    ];
+
+    const news = [
+      { title: "Présentation du nouveau maillot 24/25", tag: "Club", date: "16/08/2025" },
+      { title: "USBCO 2–1 FC Rouen : le résumé", tag: "Match", date: "12/08/2025" },
+      { title: "Abonnements : offre rentrée prolongée", tag: "Billetterie", date: "10/08/2025" }
+    ];
+
+    const mGrid = document.getElementById('matches-grid');
+    matches.forEach(m => {
+      const el = document.createElement('div');
+      el.className = 'card p-5';
+      el.innerHTML = `
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-sm uppercase tracking-wide text-black/60">${m.home ? 'Domicile' : 'Extérieur'}</div>
+            <div class="text-xl font-semibold">USBCO vs ${m.opponent}</div>
+            <div class="text-sm text-black/60 mt-1">${m.venue}</div>
+          </div>
+          <div class="text-right">
+            <div class="text-2xl font-bold">${m.hour}</div>
+            <a href="#tickets" class="inline-block mt-2 px-3 py-2 rounded-md text-white" style="background:#D91E2B">Billets</a>
+          </div>
+        </div>
+        <div class="mt-3 text-xs inline-block px-2 py-1 rounded bg-black text-white">${m.comp}</div>
+        <div class="mt-1 text-sm">${m.date}</div>
+      `;
+      mGrid.appendChild(el);
+    });
+
+    const nGrid = document.getElementById('news-grid');
+    news.forEach(n => {
+      const el = document.createElement('div');
+      el.className = 'card p-5 hover:shadow-soft transition';
+      el.innerHTML = `
+        <div class="flex items-center justify-between text-sm">
+          <span class="px-2 py-1 rounded border">${n.tag}</span>
+          <span class="text-black/60">${n.date}</span>
+        </div>
+        <div class="text-lg font-semibold mt-2">${n.title}</div>
+        <a class="mt-3 inline-flex items-center gap-2 text-black/80" href="#">Lire l'article →</a>
+      `;
+      nGrid.appendChild(el);
+    });
+  </script>
+</body>
+</html>
