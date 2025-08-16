@@ -20,10 +20,9 @@
       <nav class="flex gap-6 items-center">
         <a href="#matches" class="hover:text-red-600">Matchs</a>
         <a href="#news" class="hover:text-red-600">Actus</a>
+        <a href="#billetterie" class="hover:text-red-600">Billetterie</a>
+        <a href="#boutique" class="hover:text-red-600">Boutique</a>
         <a href="#club" class="hover:text-red-600">Le club</a>
-        <a href="https://web.digitick.com/ext/billetterie5/?site=usbco"
-           class="hidden sm:inline-flex px-4 py-2 rounded-md text-white"
-           style="background:#D91E2B">Billetterie</a>
       </nav>
     </div>
   </header>
@@ -34,8 +33,8 @@
     <div class="absolute inset-0 bg-black/50"></div>
     <div class="relative z-10">
       <h1 class="text-4xl md:text-5xl font-bold">Allez l’USBCO !</h1>
-      <p class="mt-4 text-lg">Site officiel du club de Boulogne Côte d’Opale</p>
-      <a href="https://web.digitick.com/ext/billetterie5/?site=usbco"
+      <p class="mt-4 text-lg">Site officiel (démo) — tout intégré : actus, billetterie, boutique.</p>
+      <a href="#billetterie"
          class="mt-6 inline-block px-6 py-3 rounded-md bg-red-700 text-white font-bold">Billetterie</a>
     </div>
   </section>
@@ -52,17 +51,45 @@
     <div id="news-list" class="grid sm:grid-cols-3 gap-6"></div>
   </section>
 
-  <!-- Billetterie & Boutique -->
-  <section class="py-16 bg-black text-white text-center">
-    <h2 class="text-3xl font-bold mb-8">Billetterie & Boutique</h2>
-    <div class="flex flex-col sm:flex-row gap-6 justify-center">
-      <a href="https://web.digitick.com/ext/billetterie5/?site=usbco"
-         class="inline-block px-6 py-3 rounded-md text-white border border-white/30 hover:bg-white hover:text-black">
-         Accéder à la billetterie
-      </a>
-      <a href="https://trevisport.fr/usbco-officiel/"
-         class="inline-block px-6 py-3 rounded-md bg-white text-black">
-         Visiter la boutique
+  <!-- Billetterie (intégrée) -->
+  <section id="billetterie" class="py-16 bg-black text-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-2">Billetterie</h2>
+      <p class="text-white/80 mb-8">Réservez vos places pour le Stade de la Libération.</p>
+
+      <!-- Offres rapides -->
+      <div id="tickets-grid" class="grid md:grid-cols-3 gap-6"></div>
+
+      <!-- Abonnements / Infos -->
+      <div class="mt-10 grid md:grid-cols-2 gap-6">
+        <div class="border border-white/10 rounded-xl p-6 bg-white/5">
+          <h3 class="text-xl font-semibold mb-3">Abonnements</h3>
+          <ul class="space-y-2 text-white/80">
+            <li>🔴 Tribune Honneur : à partir de 149€</li>
+            <li>⚫ Tribune Nord/Sud : à partir de 99€</li>
+            <li>👨‍👩‍👧 Pack Famille : -20% dès 3 places</li>
+          </ul>
+        </div>
+        <div class="border border-white/10 rounded-xl p-6 bg-white/5">
+          <h3 class="text-xl font-semibold mb-3">Infos stade</h3>
+          <ul class="space-y-2 text-white/80">
+            <li>📍 Stade de la Libération, Boulogne-sur-Mer</li>
+            <li>⏰ Guichets ouverts J-1 et J0</li>
+            <li>🎟️ E-billets scannables sur mobile</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Boutique (intégrée) -->
+  <section id="boutique" class="py-16 max-w-7xl mx-auto px-4">
+    <h2 class="text-3xl font-bold mb-8">Boutique officielle</h2>
+    <div id="shop-grid" class="grid sm:grid-cols-3 gap-6"></div>
+    <div class="text-center mt-8">
+      <a href="#"
+         class="inline-block px-6 py-3 rounded-md border hover:bg-black hover:text-white transition">
+         Voir toute la boutique
       </a>
     </div>
   </section>
@@ -71,9 +98,9 @@
   <section id="club" class="py-16 max-w-7xl mx-auto px-4">
     <h2 class="text-3xl font-bold mb-8">Le club</h2>
     <p class="text-lg leading-relaxed">
-      L’US Boulogne Côte d’Opale est un club historique du football français,
-      ancré dans la région des Hauts-de-France. Retrouvez ici toutes les infos
-      sur l’équipe, le stade et la vie du club.
+      L’US Boulogne Côte d’Opale est un club historique des Hauts-de-France.
+      Cette démo centralise les infos essentielles et simule une billetterie/boutique intégrées.
+      Quand tu voudras un domaine (ex: <em>usbco.fr</em>), on créera des sous-domaines dédiés.
     </p>
   </section>
 
@@ -82,27 +109,44 @@
     <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center">
       <p>© 2025 US Boulogne Côte d’Opale. Tous droits réservés.</p>
       <div class="flex gap-4 mt-4 sm:mt-0">
-        <a href="https://www.facebook.com/USBCO" target="_blank">Facebook</a>
-        <a href="https://twitter.com/USBCO" target="_blank">Twitter</a>
-        <a href="https://www.instagram.com/USBCO" target="_blank">Instagram</a>
+        <a href="#" target="_blank">Facebook</a>
+        <a href="#" target="_blank">Twitter</a>
+        <a href="#" target="_blank">Instagram</a>
       </div>
     </div>
   </footer>
 
-  <!-- Script -->
+  <!-- Script (Données + rendu) -->
   <script>
+    // Matchs
     const matches = [
       { date: "Ven 30 Août", comp: "National", home: true,  opponent: "FC Rouen",     hour: "19:30", venue: "Stade de la Libération" },
       { date: "Ven 6 Sept",  comp: "National", home: false, opponent: "Red Star",     hour: "20:45", venue: "Stade Bauer" },
       { date: "Mer 11 Sept", comp: "CdF",      home: true,  opponent: "US Dunkerque", hour: "18:30", venue: "Stade de la Libération" },
     ];
 
+    // Actus
     const news = [
       { title: "USBCO lance sa campagne d’abonnements", tag: "Billetterie", date: "16/08/2025" },
       { title: "Victoire 2–0 en amical face à Calais",  tag: "Match",      date: "14/08/2025" },
       { title: "Ouverture de la nouvelle boutique",     tag: "Club",       date: "10/08/2025" },
     ];
 
+    // Billetterie (cartes d'achat rapides — simulation)
+    const tickets = [
+      { name: "Place Standard", price: "12€",  desc: "Tribunes Nord/Sud", cta: "Choisir ma place" },
+      { name: "Place Honneur",  price: "20€",  desc: "Tribune Honneur",   cta: "Choisir ma place" },
+      { name: "Abonnement",     price: "dès 99€", desc: "Saison complète", cta: "Souscrire" },
+    ];
+
+    // Boutique (produits — simulation)
+    const products = [
+      { name: "Maillot domicile 24/25", price: "69€", img: "./assets/hero.jpg" },
+      { name: "Écharpe USBCO",          price: "15€", img: "./assets/hero.jpg" },
+      { name: "Sweat training",         price: "49€", img: "./assets/hero.jpg" },
+    ];
+
+    // Render Matchs
     const matchesList = document.getElementById("matches-list");
     matches.forEach(m => {
       matchesList.innerHTML += `
@@ -114,6 +158,7 @@
       `;
     });
 
+    // Render News
     const newsList = document.getElementById("news-list");
     news.forEach(n => {
       newsList.innerHTML += `
@@ -121,6 +166,37 @@
           <span class="text-xs uppercase text-red-700">${n.tag}</span>
           <h3 class="font-bold text-lg mt-2">${n.title}</h3>
           <p class="text-sm text-gray-500 mt-1">${n.date}</p>
+        </div>
+      `;
+    });
+
+    // Render Tickets
+    const ticketsGrid = document.getElementById("tickets-grid");
+    tickets.forEach(t => {
+      ticketsGrid.innerHTML += `
+        <div class="rounded-xl p-6 bg-white/5 border border-white/10">
+          <div class="text-2xl font-bold">${t.name}</div>
+          <div class="text-4xl font-extrabold mt-2">${t.price}</div>
+          <p class="text-white/80 mt-2">${t.desc}</p>
+          <a href="#"
+             class="inline-block mt-4 px-4 py-2 rounded-md text-white border border-white/30 hover:bg-white hover:text-black">
+             ${t.cta}
+          </a>
+        </div>
+      `;
+    });
+
+    // Render Boutique
+    const shopGrid = document.getElementById("shop-grid");
+    products.forEach(p => {
+      shopGrid.innerHTML += `
+        <div class="border rounded-lg overflow-hidden bg-white shadow hover:shadow-lg transition">
+          <img src="${p.img}" alt="${p.name}" class="w-full h-40 object-cover" />
+          <div class="p-4">
+            <div class="font-bold">${p.name}</div>
+            <div class="text-red-700 font-semibold mt-1">${p.price}</div>
+            <a href="#" class="inline-block mt-3 px-3 py-2 rounded-md border hover:bg-black hover:text-white">Ajouter au panier</a>
+          </div>
         </div>
       `;
     });
