@@ -1,1 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>USBCO — Billetterie</title>
+  <meta name="description" content="Billetterie officielle de l’US Boulogne Côte d’Opale." />
+  <link rel="icon" type="image/png" href="./assets/favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-900">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-3">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <img src="./assets/logo-usbco.png" alt="USBCO"
+             class="h-12 w-12 rounded-lg border bg-white object-contain p-1 group-hover:opacity-90 transition" />
+        <span class="font-bold text-xl text-red-700 group-hover:text-red-800 transition">US Boulogne Côte d’Opale</span>
+      </a>
+      <nav class="flex gap-6 items-center">
+        <a href="matchs.html" class="hover:text-red-600">Matchs</a>
+        <a href="actus.html" class="hover:text-red-600">Actus</a>
+        <a href="billetterie.html" class="text-red-700 font-bold">Billetterie</a>
+        <a href="boutique.html" class="hover:text-red-600">Boutique</a>
+        <a href="club.html" class="hover:text-red-600">Le club</a>
+      </nav>
+    </div>
+  </header>
 
+  <!-- Hero -->
+  <section class="relative h-[40vh] flex items-center justify-center text-center text-white">
+    <img src="./assets/hero.jpg" alt="Billetterie USBCO" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-black/50"></div>
+    <h1 class="relative z-10 text-4xl md:text-5xl font-bold">Billetterie officielle</h1>
+  </section>
+
+  <!-- Billetterie -->
+  <main class="py-16 max-w-7xl mx-auto px-4">
+    <h2 class="text-3xl font-bold mb-8">Achetez vos billets</h2>
+    <div id="tickets-grid" class="grid md:grid-cols-3 gap-6"></div>
+
+    <div class="mt-12 grid md:grid-cols-2 gap-6">
+      <div class="border rounded-xl p-6 bg-gray-50">
+        <h3 class="text-xl font-semibold mb-3">Abonnements</h3>
+        <ul class="space-y-2 text-gray-700">
+          <li>🔴 Tribune Honneur : dès 149€</li>
+          <li>⚫ Tribune Nord/Sud : dès 99€</li>
+          <li>👨‍👩‍👧 Pack Famille : -20% dès 3 places</li>
+        </ul>
+      </div>
+      <div class="border rounded-xl p-6 bg-gray-50">
+        <h3 class="text-xl font-semibold mb-3">Infos stade</h3>
+        <ul class="space-y-2 text-gray-700">
+          <li>📍 Stade de la Libération, Boulogne-sur-Mer</li>
+          <li>⏰ Guichets ouverts J-1 et J0</li>
+          <li>🎟️ E-billets scannables sur mobile</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-6">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center">
+      <p>© 2025 US Boulogne Côte d’Opale. Tous droits réservés.</p>
+      <div class="flex gap-4 mt-4 sm:mt-0">
+        <a href="#" target="_blank">Facebook</a>
+        <a href="#" target="_blank">Twitter</a>
+        <a href="#" target="_blank">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script>
+    const tickets = [
+      { name: "Place Standard", price: "12€",  desc: "Tribunes Nord/Sud", cta: "Choisir ma place" },
+      { name: "Place Honneur",  price: "20€",  desc: "Tribune Honneur",   cta: "Choisir ma place" },
+      { name: "Abonnement",     price: "dès 99€", desc: "Saison complète", cta: "Souscrire" },
+    ];
+
+    const grid = document.getElementById("tickets-grid");
+    tickets.forEach(t => {
+      grid.innerHTML += `
+        <div class="rounded-xl p-6 bg-white border shadow hover:shadow-lg transition">
+          <div class="text-2xl font-bold">${t.name}</div>
+          <div class="text-4xl font-extrabold mt-2">${t.price}</div>
+          <p class="text-gray-600 mt-2">${t.desc}</p>
+          <a href="#" class="inline-block mt-4 px-4 py-2 rounded-md bg-red-700 text-white hover:bg-red-800">
+            ${t.cta}
+          </a>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>
