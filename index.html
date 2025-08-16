@@ -7,11 +7,7 @@
   <meta name="description" content="US Boulogne Côte d'Opale : matchs, billetterie, boutique, actus." />
   <link rel="icon" type="image/png" href="./assets/favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Scroll fluide -->
-  <style>
-    html { scroll-behavior: smooth; }
-  </style>
+  <style> html { scroll-behavior: smooth; } </style>
 </head>
 <body id="top" class="bg-white text-gray-900">
   <!-- Header -->
@@ -144,11 +140,11 @@
       { name: "Abonnement",     price: "dès 99€", desc: "Saison complète", cta: "Souscrire" },
     ];
 
-    // Boutique : tes 3 maillots (uploade les images dans /assets/)
+    // Boutique : tes 3 maillots (uploade les images dans /assets/ avec ces noms)
     const products = [
-      { name: "Maillot domicile 24/25",  price: "69€", img: "./assets/maillot-domicile.jpg" },
-      { name: "Maillot extérieur 24/25", price: "69€", img: "./assets/maillot-exterieur.jpg" },
-      { name: "Maillot third 24/25",     price: "69€", img: "./assets/maillot-third.jpg" },
+      { name: "Maillot domicile 24/25",  price: "69€", img: "./assets/maillot-domicile.png" },
+      { name: "Maillot extérieur 24/25", price: "69€", img: "./assets/maillot-exterieur.png" },
+      { name: "Maillot third 24/25",     price: "69€", img: "./assets/maillot-third.png" },
     ];
 
     // Render Matchs
@@ -196,7 +192,7 @@
     products.forEach(p => {
       shopGrid.innerHTML += `
         <div class="border rounded-lg overflow-hidden bg-white shadow hover:shadow-lg transition">
-          <img src="${p.img}" alt="${p.name}" class="w-full h-56 object-cover" />
+          <img src="${p.img}" alt="${p.name}" class="w-full h-72 object-contain bg-gray-50" />
           <div class="p-4">
             <div class="font-bold">${p.name}</div>
             <div class="text-red-700 font-semibold mt-1">${p.price}</div>
