@@ -7,18 +7,16 @@
   <meta name="description" content="US Boulogne Côte d'Opale : matchs, billetterie, boutique, actus." />
   <link rel="icon" type="image/png" href="./assets/favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <style> html { scroll-behavior: smooth; } </style>
 </head>
-<body id="top" class="bg-white text-gray-900">
+<body class="bg-white text-gray-900">
   <!-- Header -->
   <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
     <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-3">
       <div class="flex items-center gap-3">
-        <!-- LOGO = retour en haut -->
-        <a href="#top" class="flex items-center gap-3 group">
+        <a href="#top" class="flex items-center gap-3">
           <img src="./assets/logo-usbco.png" alt="USBCO"
-               class="h-12 w-12 rounded-lg border bg-white object-contain p-1 group-hover:opacity-90 transition" />
-          <span class="font-bold text-xl text-red-700 group-hover:text-red-800 transition">US Boulogne Côte d’Opale</span>
+               class="h-12 w-12 rounded-lg border bg-white object-contain p-1" />
+          <span class="font-bold text-xl text-red-700">US Boulogne Côte d’Opale</span>
         </a>
       </div>
       <nav class="flex gap-6 items-center">
@@ -32,7 +30,7 @@
   </header>
 
   <!-- Hero -->
-  <section class="relative h-[60vh] flex items-center justify-center text-center text-white">
+  <section id="top" class="relative h-[60vh] flex items-center justify-center text-center text-white">
     <img src="./assets/hero.jpg" alt="Stade USBCO" class="absolute inset-0 w-full h-full object-cover" />
     <div class="absolute inset-0 bg-black/50"></div>
     <div class="relative z-10">
@@ -44,19 +42,19 @@
   </section>
 
   <!-- Matchs -->
-  <section id="matches" class="py-16 max-w-7xl mx-auto px-4 scroll-mt-24">
+  <section id="matches" class="py-16 max-w-7xl mx-auto px-4">
     <h2 class="text-3xl font-bold mb-8">Matchs à venir</h2>
     <div id="matches-list" class="grid sm:grid-cols-3 gap-6"></div>
   </section>
 
   <!-- Actus -->
-  <section id="news" class="py-16 max-w-7xl mx-auto px-4 bg-gray-50 scroll-mt-24">
+  <section id="news" class="py-16 max-w-7xl mx-auto px-4 bg-gray-50">
     <h2 class="text-3xl font-bold mb-8">Dernières actualités</h2>
     <div id="news-list" class="grid sm:grid-cols-3 gap-6"></div>
   </section>
 
   <!-- Billetterie -->
-  <section id="billetterie" class="py-16 bg-black text-white scroll-mt-24">
+  <section id="billetterie" class="py-16 bg-black text-white">
     <div class="max-w-7xl mx-auto px-4">
       <h2 class="text-3xl font-bold mb-2">Billetterie</h2>
       <p class="text-white/80 mb-8">Réservez vos places pour le Stade de la Libération.</p>
@@ -85,7 +83,7 @@
   </section>
 
   <!-- Boutique -->
-  <section id="boutique" class="py-16 max-w-7xl mx-auto px-4 scroll-mt-24">
+  <section id="boutique" class="py-16 max-w-7xl mx-auto px-4">
     <h2 class="text-3xl font-bold mb-8">Boutique officielle</h2>
     <div id="shop-grid" class="grid sm:grid-cols-3 gap-6"></div>
     <div class="text-center mt-8">
@@ -97,7 +95,7 @@
   </section>
 
   <!-- Le Club -->
-  <section id="club" class="py-16 max-w-7xl mx-auto px-4 scroll-mt-24">
+  <section id="club" class="py-16 max-w-7xl mx-auto px-4">
     <h2 class="text-3xl font-bold mb-8">Le club</h2>
     <p class="text-lg leading-relaxed">
       L’US Boulogne Côte d’Opale est un club historique des Hauts-de-France.
@@ -117,6 +115,15 @@
     </div>
   </footer>
 
+  <!-- Modal image -->
+  <div id="imgModal" class="fixed inset-0 hidden z-[60] items-center justify-center bg-black/80 p-4">
+    <button type="button" onclick="closeModal()"
+            class="absolute top-4 right-4 rounded-md bg-white/10 text-white px-3 py-2 hover:bg-white/20">
+      ✕
+    </button>
+    <img id="modalImg" src="" alt="Agrandissement" class="max-h-[90vh] w-auto rounded-lg shadow-2xl" />
+  </div>
+
   <!-- Script -->
   <script>
     // Matchs
@@ -129,8 +136,8 @@
     // Actus
     const news = [
       { title: "USBCO lance sa campagne d’abonnements", tag: "Billetterie", date: "16/08/2025" },
-      { title: "Victoire 2–0 en amical face à Calais",  tag: "Match",      date: "10/08/2025" },
-      { title: "Nouvelle boutique officielle ouverte au stade", tag: "Club", date: "05/08/2025" },
+      { title: "Victoire 2–0 en amical face à Calais",  tag: "Match",      date: "14/08/2025" },
+      { title: "Ouverture de la nouvelle boutique",     tag: "Club",       date: "10/08/2025" },
     ];
 
     // Billetterie
@@ -140,11 +147,11 @@
       { name: "Abonnement",     price: "dès 99€", desc: "Saison complète", cta: "Souscrire" },
     ];
 
-    // Boutique : tes 3 maillots (uploade les images dans /assets/ avec ces noms)
+    // Boutique
     const products = [
-      { name: "Maillot domicile 24/25",  price: "69€", img: "./assets/maillot-domicile.png" },
-      { name: "Maillot extérieur 24/25", price: "69€", img: "./assets/maillot-exterieur.png" },
-      { name: "Maillot third 24/25",     price: "69€", img: "./assets/maillot-third.png" },
+      { name: "Maillot domicile 24/25",  price: "69€", img: "./assets/USBCO domicile.png" },
+      { name: "Maillot extérieur 24/25", price: "69€", img: "./assets/USBCO exterieur.png" },
+      { name: "Maillot third 24/25",     price: "69€", img: "./assets/USBCO third.png" },
     ];
 
     // Render Matchs
@@ -187,12 +194,16 @@
       `;
     });
 
-    // Render Boutique
+    // Render Boutique (avec zoom modal)
     const shopGrid = document.getElementById("shop-grid");
     products.forEach(p => {
       shopGrid.innerHTML += `
         <div class="border rounded-lg overflow-hidden bg-white shadow hover:shadow-lg transition">
-          <img src="${p.img}" alt="${p.name}" class="w-full h-72 object-contain bg-gray-50" />
+          <button type="button" onclick="openModal('${p.img}')"
+                  class="block w-full bg-gray-50 focus:outline-none">
+            <img src="${p.img}" alt="${p.name}"
+                 class="w-full h-72 object-contain transition-transform duration-300 hover:scale-105" />
+          </button>
           <div class="p-4">
             <div class="font-bold">${p.name}</div>
             <div class="text-red-700 font-semibold mt-1">${p.price}</div>
@@ -200,6 +211,32 @@
           </div>
         </div>
       `;
+    });
+
+    // Fonctions modal
+    function openModal(src) {
+      const modal = document.getElementById('imgModal');
+      const img = document.getElementById('modalImg');
+      img.src = src;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imgModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    // Fermer en cliquant le fond
+    document.getElementById('imgModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imgModal') closeModal();
+    });
+    // Fermer avec Échap
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
     });
   </script>
 </body>
