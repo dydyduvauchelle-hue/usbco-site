@@ -52,21 +52,19 @@
   </footer>
 
   <!-- Script -->
-  <script>
+<script>
 async function loadAllFixtures() {
   try {
     const res = await fetch('./assets/fixtures.json', { cache: 'no-store' });
     const fixtures = await res.json();
-
-    // normalise + tri par date/heure croissante
     const items = (fixtures || []).map(m => {
-      const dateISO = (m.date && m.time) ? `${m.date}T${m.time}:00` : m.dateISO;
+      const dateISO = m.dateISO || (m.date && m.time ? `${m.date}T${m.time}:00` : null);
       return {
         dateISO,
-        comp:   m.comp || 'Ligue 2',
-        home:   !!m.home,
-        opponent: m.opponent || '—',
-        venue:  m.venue || (m.home ? 'Stade de la Libération' : '—')
+        comp:   m.comp || 'Ligue 2 BKT',
+        home:   m.home === true,
+        opponent: m.opponent || 'À venir',
+        venue:  m.venue || (m.home ? 'Stade de la Libération' : 'À déterminer')
       };
     }).filter(m => m.dateISO)
       .sort((a,b) => new Date(a.dateISO) - new Date(b.dateISO));
@@ -74,8 +72,8 @@ async function loadAllFixtures() {
     const grid = document.getElementById("matches-grid");
     grid.innerHTML = items.map(m => {
       const d = new Date(m.dateISO);
-      const dateStr = d.toLocaleDateString('fr-FR', { weekday:'long', day:'2-digit', month:'long' });
-      const timeStr = d.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
+      const dateStr = d.toLocaleDateString('fr-FR',{weekday:'long', day:'2-digit', month:'long'});
+      const timeStr = d.toLocaleTimeString('fr-FR',{hour:'2-digit', minute:'2-digit'});
       const title = m.home ? `USBCO vs ${m.opponent}` : `${m.opponent} vs USBCO`;
       return `
         <div class="border rounded-lg p-6 shadow hover:shadow-lg transition bg-white">
@@ -84,8 +82,7 @@ async function loadAllFixtures() {
           <p class="text-gray-700">${dateStr} — ${timeStr}</p>
           <p class="text-sm text-gray-500 mt-2">${m.home ? "🏟️ Domicile" : "🚌 Extérieur"} — ${m.venue}</p>
           <a href="billetterie.html" class="inline-block mt-4 px-4 py-2 rounded-md border border-red-700 text-red-700 hover:bg-red-700 hover:text-white">Billets</a>
-        </div>
-      `;
+        </div>`;
     }).join("") || `<div class="text-gray-500">Calendrier à venir…</div>`;
   } catch (e) {
     console.error(e);
