@@ -4,27 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>USBCO — Billetterie</title>
-  <meta name="description" content="Billetterie officielle de l’US Boulogne Côte d’Opale : choisissez votre place sur le plan du stade." />
+  <meta name="description" content="Billetterie officielle de l’US Boulogne Côte d’Opale." />
   <link rel="icon" type="image/png" href="./assets/favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     html{scroll-behavior:smooth}
-    /* Hotspots = zones cliquables positionnées en % sur l'image */
-    .hotspot {
-      position: absolute;
-      transform: translate(-50%, -50%);
-      background: rgba(255,255,255,.85);
-      border: 2px solid #111;
-      border-radius: .5rem;
-      padding: .25rem .45rem;
-      font-size: .8rem;
-      cursor: pointer;
-      white-space: nowrap;
-      box-shadow: 0 6px 14px rgba(0,0,0,.18);
-    }
-    .hotspot:hover { background:#111; color:#fff; }
-    .pill { display:inline-block; padding:.15rem .5rem; border-radius:999px; border:1px solid rgba(0,0,0,.15); }
-    .badge { font-size:.75rem; padding:.15rem .45rem; border-radius:.35rem; background:#f3f4f6; }
+    .pill { display:inline-block; padding:.15rem .6rem; border-radius:999px; border:1px solid rgba(0,0,0,.12); background:#fff; }
+    .badge{ font-size:.8rem; padding:.15rem .45rem; border-radius:.4rem; background:#f3f4f6; }
   </style>
 </head>
 <body class="bg-white text-gray-900">
@@ -53,11 +39,11 @@
     <h1 class="relative z-10 text-4xl md:text-5xl font-bold">Billetterie officielle</h1>
   </section>
 
-  <!-- Liste des matchs (exemple) -->
+  <!-- Liste de matchs (exemple) -->
   <main class="max-w-7xl mx-auto px-4 py-16">
     <h2 class="text-3xl font-bold mb-8">Choisissez un match</h2>
     <div class="grid md:grid-cols-2 gap-6">
-      <!-- Match exemple -->
+      <!-- Match 1 -->
       <article class="border rounded-xl p-6 bg-white shadow hover:shadow-lg transition">
         <div class="flex items-center justify-between">
           <h3 class="text-2xl font-bold text-red-700">USBCO vs FC Rouen</h3>
@@ -72,82 +58,37 @@
         <button
           class="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-md bg-red-700 text-white hover:bg-red-800"
           onclick="openSeatMap('USBCO vs FC Rouen','2025-08-30 19:30')">
-          🪑 Acheter mon billet
+          🎟️ Acheter mon billet
         </button>
       </article>
-      <!-- Dupliques cet article pour d'autres matchs si besoin -->
+
+      <!-- (Duplique ce bloc pour d'autres matchs si besoin) -->
     </div>
   </main>
 
-  <!-- Modal Plan du stade -->
+  <!-- MODAL : message “plan à venir” -->
   <div id="seatModal" class="fixed inset-0 hidden z-[60] items-center justify-center bg-black/70 p-4">
-    <div class="relative max-w-5xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden">
+    <div class="relative w-full max-w-xl bg-white rounded-2xl shadow-2xl overflow-hidden">
       <button type="button" onclick="closeSeatMap()"
-              class="absolute top-3 right-3 rounded-md bg-black/80 text-white px-3 py-2 hover:bg-black">
-        ✕
-      </button>
+              class="absolute top-3 right-3 rounded-md bg-black/80 text-white px-3 py-2 hover:bg-black">✕</button>
 
-      <div class="p-5 border-b">
-        <h3 id="seatModalTitle" class="text-xl font-bold">Sélectionnez votre place</h3>
+      <div class="p-8 text-center">
+        <h3 id="seatModalTitle" class="text-2xl font-bold">Sélection de place</h3>
         <p id="seatModalSub" class="text-sm text-gray-600 mt-1"></p>
-      </div>
 
-      <!-- Plan + zones -->
-      <div class="grid lg:grid-cols-3 gap-0">
-        <!-- Image + hotspots -->
-        <div class="col-span-2 relative">
-          <img src="./assets/stade-plan.jpg" alt="Plan du Stade de la Libération" class="w-full h-full object-contain" />
-
-          <!-- HOTSPOTS (positions approximatives en %) -->
-          <!-- Franck Ribéry : tribune rectiligne au Nord (haut du terrain sur le plan) -->
-          <button class="hotspot" style="top: 22%; left: 60%;"
-                  onclick="selectTribune('Tribune Franck Ribéry', 25, 2501)">
-            Ribéry • 25€
-          </button>
-
-          <!-- Ouest B : à gauche derrière les buts (ouest) -->
-          <button class="hotspot" style="top: 55%; left: 20%;"
-                  onclick="selectTribune('Tribune Ouest B', 25, null)">
-            Ouest B • 25€
-          </button>
-
-          <!-- Boulanger (Sud) : au sud/virage bas (1038 places) -->
-          <button class="hotspot" style="top: 82%; left: 63%;"
-                  onclick="selectTribune('Tribune Boulanger', 30, 1038)">
-            Boulanger • 30€
-          </button>
-        </div>
-
-        <!-- Panneau de sélection -->
-        <div class="p-5 bg-gray-50">
-          <h4 class="font-semibold text-lg">Votre sélection</h4>
-          <div id="selectionBox" class="mt-3 text-gray-700">
-            <p>Choisissez une tribune sur le plan.</p>
-          </div>
-
-          <div class="mt-6">
-            <label class="text-sm text-gray-600">Quantité</label>
-            <select id="qty" class="w-full mt-1 border rounded-md px-3 py-2">
-              <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-            </select>
-          </div>
-
-          <button id="ctaBtn" class="mt-6 w-full px-4 py-3 rounded-md bg-red-700 text-white disabled:opacity-40 disabled:cursor-not-allowed"
-                  disabled>
-            Réserver ma place
-          </button>
-
-          <p class="text-xs text-gray-500 mt-3">
-            (Simulation : pas de paiement en ligne ici. Bouton cliquable pour démonstration.)
+        <div class="mt-6 p-6 rounded-lg border bg-gray-50">
+          <h4 class="text-xl font-semibold mb-2">Plan du stade en cours de mise à jour</h4>
+          <p class="text-gray-600">
+            La sélection précise des places par tribune arrive très vite.<br/>
+            En attendant, vous pouvez acheter vos billets sans choix de siège.
           </p>
+          <a href="#"
+             class="inline-block mt-6 px-5 py-3 rounded-md bg-red-700 text-white hover:bg-red-800">
+             Acheter maintenant
+          </a>
         </div>
-      </div>
 
-      <!-- Légende -->
-      <div class="p-5 border-t text-sm text-gray-600 flex flex-wrap gap-4">
-        <span class="pill">Ribéry : 25€ • ~2501 places</span>
-        <span class="pill">Ouest B : 25€</span>
-        <span class="pill">Boulanger : 30€ • ~1038 places</span>
+        <p class="text-xs text-gray-500 mt-4">(Simulation : pas de paiement réel)</p>
       </div>
     </div>
   </div>
@@ -166,66 +107,29 @@
 
   <!-- Script -->
   <script>
-    let currentMatch = null;
-    let selected = null;
-
     function openSeatMap(matchTitle, matchDateTime){
-      currentMatch = { title: matchTitle, dt: matchDateTime };
       document.getElementById('seatModalTitle').textContent = matchTitle;
       document.getElementById('seatModalSub').textContent  = `Date : ${matchDateTime}`;
-      document.getElementById('selectionBox').innerHTML = '<p>Choisissez une tribune sur le plan.</p>';
-      document.getElementById('ctaBtn').disabled = true;
       const modal = document.getElementById('seatModal');
-      modal.classList.remove('hidden'); modal.classList.add('flex');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
       document.body.classList.add('overflow-hidden');
     }
 
     function closeSeatMap(){
-      document.getElementById('seatModal').classList.add('hidden');
-      document.getElementById('seatModal').classList.remove('flex');
+      const modal = document.getElementById('seatModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
       document.body.classList.remove('overflow-hidden');
-      selected = null;
     }
 
-    function euro(n){ return new Intl.NumberFormat('fr-FR', { style:'currency', currency:'EUR' }).format(n); }
-
-    function selectTribune(name, price, capacity){
-      selected = { name, price, capacity };
-      const qty = parseInt(document.getElementById('qty').value, 10) || 1;
-      const total = price * qty;
-      document.getElementById('selectionBox').innerHTML = `
-        <div class="rounded-lg border bg-white p-3">
-          <p><strong>Tribune :</strong> ${name}${capacity ? ' • ' + capacity + ' places' : ''}</p>
-          <p><strong>Tarif :</strong> ${euro(price)} / billet</p>
-          <p><strong>Total (x${qty}) :</strong> ${euro(total)}</p>
-        </div>
-      `;
-      document.getElementById('ctaBtn').disabled = false;
-    }
-
-    // Recalcule le total si la quantité change
-    document.getElementById('qty').addEventListener('change', () => {
-      if (!selected) return;
-      selectTribune(selected.name, selected.price, selected.capacity);
-    });
-
-    // CTA (simulation)
-    document.getElementById('ctaBtn').addEventListener('click', () => {
-      if (!selected || !currentMatch) return;
-      alert(
-        `Réservation simulée :\\n\\n` +
-        `${currentMatch.title} — ${currentMatch.dt}\\n` +
-        `Tribune : ${selected.name}\\n` +
-        `Prix : ${euro(selected.price)} x ${document.getElementById('qty').value}`
-      );
-      closeSeatMap();
-    });
-
-    // Fermer modal : clic fond + Échap
+    // Fermer avec clic fond + Échap
     document.getElementById('seatModal').addEventListener('click', (e) => {
       if (e.target.id === 'seatModal') closeSeatMap();
     });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSeatMap(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeSeatMap();
+    });
   </script>
 </body>
 </html>
