@@ -1,1 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>USBCO — Le club</title>
+  <meta name="description" content="Présentation du club de l’US Boulogne Côte d’Opale : histoire, stade, infos pratiques." />
+  <link rel="icon" type="image/png" href="./assets/favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-900">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-3">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <img src="./assets/logo-usbco.png" alt="USBCO"
+             class="h-12 w-12 rounded-lg border bg-white object-contain p-1 group-hover:opacity-90 transition" />
+        <span class="font-bold text-xl text-red-700 group-hover:text-red-800 transition">US Boulogne Côte d’Opale</span>
+      </a>
+      <nav class="flex gap-6 items-center">
+        <a href="matchs.html" class="hover:text-red-600">Matchs</a>
+        <a href="actus.html" class="hover:text-red-600">Actus</a>
+        <a href="billetterie.html" class="hover:text-red-600">Billetterie</a>
+        <a href="boutique.html" class="hover:text-red-600">Boutique</a>
+        <a href="club.html" class="text-red-700 font-bold">Le club</a>
+      </nav>
+    </div>
+  </header>
 
+  <!-- Hero -->
+  <section class="relative h-[40vh] flex items-center justify-center text-center text-white">
+    <img src="./assets/hero.jpg" alt="Stade USBCO" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-black/50"></div>
+    <h1 class="relative z-10 text-4xl md:text-5xl font-bold">Le club</h1>
+  </section>
+
+  <!-- Présentation -->
+  <main class="max-w-7xl mx-auto px-4 py-12 space-y-16">
+    <!-- Historique -->
+    <section>
+      <h2 class="text-3xl font-bold mb-4">Un club historique</h2>
+      <p class="text-lg leading-relaxed">
+        Fondé en 1898, l’US Boulogne Côte d’Opale (USBCO) est un club centenaire du football français,
+        ancré dans la ville de Boulogne-sur-Mer et dans les Hauts-de-France. 
+        Le club a évolué dans plusieurs divisions nationales et reste un acteur majeur du football régional.
+      </p>
+    </section>
+
+    <!-- Stade -->
+    <section class="grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h2 class="text-3xl font-bold mb-4">Le Stade de la Libération</h2>
+        <p class="text-lg leading-relaxed">
+          L’USBCO évolue au Stade de la Libération, inauguré en 1956, qui accueille les matchs de championnat et de coupe.
+          Situé au cœur de Boulogne-sur-Mer, il est un lieu emblématique où se rassemblent les supporters rouges et noirs.
+        </p>
+        <ul class="mt-4 space-y-2 text-gray-700">
+          <li>📍 Adresse : Avenue Charles de Gaulle, 62200 Boulogne-sur-Mer</li>
+          <li>⚽ Capacité : environ 9 500 places</li>
+          <li>🚗 Accès : parkings à proximité + transports en commun</li>
+        </ul>
+      </div>
+      <img src="./assets/hero.jpg" alt="Stade de la Libération"
+           class="rounded-lg shadow-lg object-cover h-72 w-full" />
+    </section>
+
+    <!-- Valeurs -->
+    <section>
+      <h2 class="text-3xl font-bold mb-4">Nos valeurs</h2>
+      <p class="text-lg leading-relaxed">
+        L’USBCO défend des valeurs fortes : passion, engagement, esprit collectif et attachement au territoire.
+        Le club œuvre également pour la formation des jeunes à travers son centre de formation et ses équipes de jeunes.
+      </p>
+    </section>
+
+    <!-- Infos pratiques -->
+    <section class="bg-gray-50 p-8 rounded-lg">
+      <h2 class="text-3xl font-bold mb-4">Infos pratiques</h2>
+      <ul class="grid sm:grid-cols-2 gap-4 text-lg text-gray-700">
+        <li>📞 Téléphone : 03 21 92 34 56</li>
+        <li>📧 Email : contact@usbco.fr</li>
+        <li>🏟️ Adresse : Stade de la Libération, Boulogne-sur-Mer</li>
+        <li>🕒 Horaires : Lun–Ven, 9h–18h</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-6 mt-10">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center">
+      <p>© 2025 US Boulogne Côte d’Opale. Tous droits réservés.</p>
+      <div class="flex gap-4 mt-4 sm:mt-0">
+        <a href="#" target="_blank">Facebook</a>
+        <a href="#" target="_blank">Twitter</a>
+        <a href="#" target="_blank">Instagram</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
