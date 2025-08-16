@@ -1,1 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>USBCO — Actualités</title>
+  <meta name="description" content="Toutes les actualités de l’US Boulogne Côte d’Opale." />
+  <link rel="icon" type="image/png" href="./assets/favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-900">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-3">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <img src="./assets/logo-usbco.png" alt="USBCO"
+             class="h-12 w-12 rounded-lg border bg-white object-contain p-1 group-hover:opacity-90 transition" />
+        <span class="font-bold text-xl text-red-700 group-hover:text-red-800 transition">US Boulogne Côte d’Opale</span>
+      </a>
+      <nav class="flex gap-6 items-center">
+        <a href="matchs.html" class="hover:text-red-600">Matchs</a>
+        <a href="actus.html" class="text-red-700 font-bold">Actus</a>
+        <a href="billetterie.html" class="hover:text-red-600">Billetterie</a>
+        <a href="boutique.html" class="hover:text-red-600">Boutique</a>
+        <a href="club.html" class="hover:text-red-600">Le club</a>
+      </nav>
+    </div>
+  </header>
 
+  <!-- Hero -->
+  <section class="relative h-[40vh] flex items-center justify-center text-center text-white">
+    <img src="./assets/hero.jpg" alt="Actus USBCO" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-black/50"></div>
+    <h1 class="relative z-10 text-4xl md:text-5xl font-bold">Dernières actualités</h1>
+  </section>
+
+  <!-- Liste actus -->
+  <main class="py-16 max-w-7xl mx-auto px-4">
+    <div id="news-grid" class="grid md:grid-cols-3 gap-6"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-6">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center">
+      <p>© 2025 US Boulogne Côte d’Opale. Tous droits réservés.</p>
+      <div class="flex gap-4 mt-4 sm:mt-0">
+        <a href="#" target="_blank">Facebook</a>
+        <a href="#" target="_blank">Twitter</a>
+        <a href="#" target="_blank">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script>
+    const news = [
+      { title: "USBCO lance sa campagne d’abonnements", tag: "Billetterie", date: "16/08/2025" },
+      { title: "Victoire 2–0 en amical face à Calais",  tag: "Match",      date: "14/08/2025" },
+      { title: "Ouverture de la nouvelle boutique",     tag: "Club",       date: "10/08/2025" },
+      { title: "Conférence de presse d’avant match",   tag: "Conférence", date: "05/08/2025" },
+      { title: "Les jeunes de l’USBCO brillent en tournoi", tag: "Formation", date: "01/08/2025" },
+      { title: "Nouvelle recrue : un attaquant prometteur", tag: "Mercato", date: "28/07/2025" },
+    ];
+
+    const grid = document.getElementById("news-grid");
+    news.forEach(n => {
+      grid.innerHTML += `
+        <div class="border rounded-lg p-6 shadow hover:shadow-lg transition bg-white">
+          <span class="text-xs uppercase text-red-700">${n.tag}</span>
+          <h2 class="font-bold text-lg mt-2">${n.title}</h2>
+          <p class="text-sm text-gray-500 mt-1">${n.date}</p>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>
