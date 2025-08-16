@@ -1,236 +1,128 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <link rel="icon" type="image/png" href="./assets/favicon.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>USBCO — Site officiel</title>
-  <meta name="description" content="US Boulogne Côte d'Opale : matchs, billetterie, boutique, actus."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta name="description" content="US Boulogne Côte d'Opale : matchs, billetterie, boutique, actus." />
+  <link rel="icon" type="image/png" href="./assets/favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = { theme: { extend: { colors: { primary: "#D91E2B", dark: "#0A0A0A" }}}}
-  </script>
-  <style>
-    * { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-    .container { max-width: 1140px; }
-    .card { border: 1px solid rgba(0,0,0,0.08); border-radius: 1rem; background: white; }
-    .shadow-soft { box-shadow: 0 6px 24px rgba(0,0,0,.08); }
-  </style>
-  <!-- Favicon (optionnel) -->
-  <!-- <link rel="icon" href="assets/favicon.png"> -->
 </head>
-<body class="bg-white text-black">
-  <!-- Top strip -->
-  <div class="w-full bg-black text-white text-xs">
-    <div class="container mx-auto px-4 py-2 flex items-center justify-between">
-      <span class="tracking-widest">US BOULOGNE CÔTE D'OPALE</span>
-      <div class="hidden sm:flex gap-4 opacity-80">
-        <a href="#store" class="hover:opacity-100">Boutique</a>
-        <a href="#tickets" class="hover:opacity-100">Billetterie</a>
-        <a href="#contact" class="hover:opacity-100">Contact</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Nav -->
-  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b">
-    <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
+<body class="bg-white text-gray-900">
+  <!-- Header / Navbar -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-3">
       <div class="flex items-center gap-3">
-        <!-- LOGO -->
-        <img src="./assets/logo-usbco.png"
-             alt="USBCO"
+        <img src="./assets/logo-usbco.png" alt="USBCO"
              class="h-12 w-12 rounded-lg border bg-white object-contain p-1" />
-        <span class="font-semibold">USBCO</span>
+        <span class="font-bold text-xl text-red-700">US Boulogne Côte d’Opale</span>
       </div>
-      <div class="hidden md:flex gap-6 text-sm">
-        <a href="#matches" class="hover:text-black/70">Matchs</a>
-        <a href="#news" class="hover:text-black/70">Actus</a>
-        <a href="#club" class="hover:text-black/70">Club</a>
-        <a href="#store" class="hover:text-black/70">Boutique</a>
-        <a href="#tickets" class="hover:text-black/70">Billetterie</a>
-      </div>
-      <!-- Lien vrai billetterie si tu en as un -->
-      <a href="https://TON-LIEN-BILLETTERIE" class="hidden sm:inline-flex px-4 py-2 rounded-md text-white" style="background:#D91E2B">Billetterie</a>
-    </nav>
+      <nav class="flex gap-6 items-center">
+        <a href="#matches" class="hover:text-red-600">Matchs</a>
+        <a href="#news" class="hover:text-red-600">Actus</a>
+        <a href="#club" class="hover:text-red-600">Le club</a>
+        <a href="https://web.digitick.com/ext/billetterie5/?site=usbco"
+           class="hidden sm:inline-flex px-4 py-2 rounded-md text-white"
+           style="background:#D91E2B">Billetterie</a>
+      </nav>
+    </div>
   </header>
 
   <!-- Hero -->
-  <section class="relative">
-    <div class="container mx-auto px-4 py-12 md:py-16 grid md:grid-cols-2 gap-8 items-center">
-      <div>
-        <h1 class="text-4xl md:text-5xl font-bold leading-tight">
-          Ensemble, plus haut. <span class="text-primary">Allez Boulogne !</span>
-        </h1>
-        <p class="mt-4 text-black/70">Site moderne pour suivre l'USBCO : calendrier, actus, billetterie, boutique. Design rouge & noir.</p>
-        <div class="mt-6 flex flex-wrap gap-3">
-          <a href="#tickets" class="px-5 py-3 rounded-md text-white shadow-soft" style="background:#D91E2B">Prendre ma place</a>
-          <!-- Lien vrai boutique si tu en as un -->
-          <a href="https://TON-LIEN-BOUTIQUE" class="px-5 py-3 rounded-md border">Boutique officielle</a>
-        </div>
-      </div>
-      <div class="relative rounded-2xl overflow-hidden shadow-soft">
-        <img src="./assets/hero.jpg" alt="Stade de la Libération" class="w-full h-auto"/>
-      </div>
+  <section class="relative h-[60vh] flex items-center justify-center text-center text-white">
+    <img src="./assets/hero.jpg" alt="Stade USBCO" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-black/50"></div>
+    <div class="relative z-10">
+      <h1 class="text-4xl md:text-5xl font-bold">Allez l’USBCO !</h1>
+      <p class="mt-4 text-lg">Site officiel du club de Boulogne Côte d’Opale</p>
+      <a href="https://web.digitick.com/ext/billetterie5/?site=usbco"
+         class="mt-6 inline-block px-6 py-3 rounded-md bg-red-700 text-white font-bold">Billetterie</a>
     </div>
   </section>
 
   <!-- Matchs -->
-  <section id="matches" class="py-10 bg-neutral-50 border-t">
-    <div class="container mx-auto px-4">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl font-bold">Matchs à venir</h2>
-        <a href="#" class="px-3 py-2 rounded-md border">Calendrier complet</a>
-      </div>
-      <div id="matches-grid" class="grid md:grid-cols-3 gap-4"></div>
-    </div>
+  <section id="matches" class="py-16 max-w-7xl mx-auto px-4">
+    <h2 class="text-3xl font-bold mb-8">Matchs à venir</h2>
+    <div id="matches-list" class="grid sm:grid-cols-3 gap-6"></div>
   </section>
 
   <!-- Actus -->
-  <section id="news" class="py-12">
-    <div class="container mx-auto px-4">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl font-bold">Dernières actus</h2>
-        <a href="#" class="px-3 py-2 rounded-md border">Voir toutes</a>
-      </div>
-      <div id="news-grid" class="grid md:grid-cols-3 gap-4"></div>
+  <section id="news" class="py-16 max-w-7xl mx-auto px-4 bg-gray-50">
+    <h2 class="text-3xl font-bold mb-8">Dernières actualités</h2>
+    <div id="news-list" class="grid sm:grid-cols-3 gap-6"></div>
+  </section>
+
+  <!-- Billetterie & Boutique -->
+  <section class="py-16 bg-black text-white text-center">
+    <h2 class="text-3xl font-bold mb-8">Billetterie & Boutique</h2>
+    <div class="flex flex-col sm:flex-row gap-6 justify-center">
+      <a href="https://web.digitick.com/ext/billetterie5/?site=usbco"
+         class="inline-block px-6 py-3 rounded-md text-white border border-white/30 hover:bg-white hover:text-black">
+         Accéder à la billetterie
+      </a>
+      <a href="https://trevisport.fr/usbco-officiel/"
+         class="inline-block px-6 py-3 rounded-md bg-white text-black">
+         Visiter la boutique
+      </a>
     </div>
   </section>
 
-  <!-- Tickets + Store -->
-  <section id="tickets" class="py-12 bg-black text-white">
-    <div className="container mx-auto px-4 grid md:grid-cols-2 gap-6">
-      <div class="card bg-white/5 border-white/10 p-6">
-        <h3 class="text-xl font-semibold mb-2">Billetterie</h3>
-        <p class="text-white/80">Réservez vos places pour les prochains matchs au Stade de la Libération.</p>
-        <a href="https://TON-LIEN-BILLETTERIE" class="inline-block mt-4 px-4 py-2 rounded-md text-white border border-white/30 hover:bg-white hover:text-black">Accéder à la billetterie</a>
-      </div>
-      <div id="store" class="card bg-white/5 border-white/10 p-6">
-        <h3 class="text-xl font-semibold mb-2">Boutique officielle</h3>
-        <p class="text-white/80">Maillots, écharpes, training : soutenez le club en rouge et noir.</p>
-        <a href="https://TON-LIEN-BOUTIQUE" class="inline-block mt-4 px-4 py-2 rounded-md bg-white text-black">Visiter la boutique</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Club -->
-  <section id="club" class="py-12">
-    <div class="container mx-auto px-4 grid lg:grid-cols-2 gap-8 items-start">
-      <div>
-        <h2 class="text-2xl font-bold">Le club</h2>
-        <p class="mt-4 text-black/70">US Boulogne Côte d'Opale : un club historique avec une ambition moderne. Cette démo est prête à recevoir vos actus et votre calendrier.</p>
-        <ul class="mt-4 space-y-2 list-disc list-inside text-black/80">
-          <li>Site statique (super simple à déployer)</li>
-          <li>Design responsive</li>
-          <li>Sections modifiables en quelques clics</li>
-        </ul>
-      </div>
-      <div class="card p-6">
-        <h3 class="text-lg font-semibold mb-2">Informations pratiques</h3>
-        <div class="text-black/70">Stade de la Libération, Boulogne-sur-Mer</div>
-        <div id="contact" class="text-black/70 mt-1">contact@usbco.fr (exemple)</div>
-      </div>
-    </div>
+  <!-- Le Club -->
+  <section id="club" class="py-16 max-w-7xl mx-auto px-4">
+    <h2 class="text-3xl font-bold mb-8">Le club</h2>
+    <p class="text-lg leading-relaxed">
+      L’US Boulogne Côte d’Opale est un club historique du football français,
+      ancré dans la région des Hauts-de-France. Retrouvez ici toutes les infos
+      sur l’équipe, le stade et la vie du club.
+    </p>
   </section>
 
   <!-- Footer -->
-  <footer class="border-t">
-    <div class="container mx-auto px-4 py-8 grid md:grid-cols-4 gap-6 text-sm">
-      <div>
-        <div class="flex items-center gap-2">
-          <img src="./assets/logo-usbco.png" class="h-8 w-8 rounded-md bg-white object-contain p-0.5" alt="USBCO"/>
-          <span class="font-semibold">USBCO</span>
-        </div>
-        <p class="mt-3 text-black/60">Site vitrine moderne — version démo. Contenus et images à intégrer.</p>
-      </div>
-      <div>
-        <div class="font-semibold mb-2">Club</div>
-        <ul class="space-y-1 text-black/70">
-          <li><a href="#club">Histoire</a></li>
-          <li><a href="#club">Organisation</a></li>
-          <li>Centre de formation</li>
-        </ul>
-      </div>
-      <div>
-        <div class="font-semibold mb-2">Infos</div>
-        <ul class="space-y-1 text-black/70">
-          <li><a href="#tickets">Billetterie</a></li>
-          <li><a href="#store">Boutique</a></li>
-          <li>Mentions légales</li>
-        </ul>
-      </div>
-      <div>
-        <div class="font-semibold mb-2">Suivre le club</div>
-        <div class="flex gap-3">
-          <a href="#" class="opacity-80 hover:opacity-100">X/Twitter</a>
-          <a href="#" class="opacity-80 hover:opacity-100">Facebook</a>
-          <a href="#" class="opacity-80 hover:opacity-100">Instagram</a>
-        </div>
-      </div>
-    </div>
-    <div class="border-t text-xs text-black/60 py-4">
-      <div class="container mx-auto px-4 flex items-center justify-between">
-        <span>© <script>document.write(new Date().getFullYear())</script> USBCO</span>
-        <span>Design rouge & noir</span>
+  <footer class="bg-gray-900 text-white py-6">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center">
+      <p>© 2025 US Boulogne Côte d’Opale. Tous droits réservés.</p>
+      <div class="flex gap-4 mt-4 sm:mt-0">
+        <a href="https://www.facebook.com/USBCO" target="_blank">Facebook</a>
+        <a href="https://twitter.com/USBCO" target="_blank">Twitter</a>
+        <a href="https://www.instagram.com/USBCO" target="_blank">Instagram</a>
       </div>
     </div>
   </footer>
 
-  <!-- DATA + RENDER -->
+  <!-- Script -->
   <script>
-    // === Matchs (remplace par tes vrais matchs si tu veux) ===
     const matches = [
       { date: "Ven 30 Août", comp: "National", home: true,  opponent: "FC Rouen",     hour: "19:30", venue: "Stade de la Libération" },
       { date: "Ven 6 Sept",  comp: "National", home: false, opponent: "Red Star",     hour: "20:45", venue: "Stade Bauer" },
       { date: "Mer 11 Sept", comp: "CdF",      home: true,  opponent: "US Dunkerque", hour: "18:30", venue: "Stade de la Libération" },
     ];
 
-    // === Actus (remplace par tes vraies actus) ===
     const news = [
       { title: "USBCO lance sa campagne d’abonnements", tag: "Billetterie", date: "16/08/2025" },
       { title: "Victoire 2–0 en amical face à Calais",  tag: "Match",      date: "14/08/2025" },
       { title: "Ouverture de la nouvelle boutique",     tag: "Club",       date: "10/08/2025" },
     ];
 
-    // Rendu Matchs
-    const mGrid = document.getElementById('matches-grid');
+    const matchesList = document.getElementById("matches-list");
     matches.forEach(m => {
-      const el = document.createElement('div');
-      el.className = 'card p-5';
-      el.innerHTML = `
-        <div class="flex items-center justify-between">
-          <div>
-            <div class="text-sm uppercase tracking-wide text-black/60">${m.home ? 'Domicile' : 'Extérieur'}</div>
-            <div class="text-xl font-semibold">USBCO vs ${m.opponent}</div>
-            <div class="text-sm text-black/60 mt-1">${m.venue}</div>
-          </div>
-          <div class="text-right">
-            <div class="text-2xl font-bold">${m.hour}</div>
-            <a href="#tickets" class="inline-block mt-2 px-3 py-2 rounded-md text-white" style="background:#D91E2B">Billets</a>
-          </div>
+      matchesList.innerHTML += `
+        <div class="border rounded-lg p-4 shadow hover:shadow-lg transition">
+          <h3 class="font-bold text-xl text-red-700">${m.opponent}</h3>
+          <p>${m.comp} — ${m.date} à ${m.hour}</p>
+          <p>${m.home ? "Domicile" : "Extérieur"} — ${m.venue}</p>
         </div>
-        <div class="mt-3 text-xs inline-block px-2 py-1 rounded bg-black text-white">${m.comp}</div>
-        <div class="mt-1 text-sm">${m.date}</div>
       `;
-      mGrid.appendChild(el);
     });
 
-    // Rendu Actus
-    const nGrid = document.getElementById('news-grid');
+    const newsList = document.getElementById("news-list");
     news.forEach(n => {
-      const el = document.createElement('div');
-      el.className = 'card p-5 hover:shadow-soft transition';
-      el.innerHTML = `
-        <div class="flex items-center justify-between text-sm">
-          <span class="px-2 py-1 rounded border">${n.tag}</span>
-          <span class="text-black/60">${n.date}</span>
+      newsList.innerHTML += `
+        <div class="border rounded-lg p-4 shadow hover:shadow-lg transition bg-white">
+          <span class="text-xs uppercase text-red-700">${n.tag}</span>
+          <h3 class="font-bold text-lg mt-2">${n.title}</h3>
+          <p class="text-sm text-gray-500 mt-1">${n.date}</p>
         </div>
-        <div class="text-lg font-semibold mt-2">${n.title}</div>
-        <a class="mt-3 inline-flex items-center gap-2 text-black/80" href="#">Lire l'article →</a>
       `;
-      nGrid.appendChild(el);
     });
   </script>
 </body>
