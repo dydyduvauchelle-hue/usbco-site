@@ -53,26 +53,46 @@
 
   <!-- Script -->
   <script>
-    const matches = [
-      { date: "Ven 30 Août", comp: "National", home: true,  opponent: "FC Rouen",     hour: "19:30", venue: "Stade de la Libération" },
-      { date: "Ven 6 Sept",  comp: "National", home: false, opponent: "Red Star",     hour: "20:45", venue: "Stade Bauer" },
-      { date: "Mer 11 Sept", comp: "Coupe de France", home: true, opponent: "US Dunkerque", hour: "18:30", venue: "Stade de la Libération" },
-      { date: "Sam 20 Sept", comp: "National", home: true,  opponent: "Châteauroux",  hour: "19:00", venue: "Stade de la Libération" },
-      { date: "Ven 27 Sept", comp: "National", home: false, opponent: "Nancy",        hour: "20:00", venue: "Stade Marcel Picot" },
-    ];
+async function loadAllFixtures() {
+  try {
+    const res = await fetch('./assets/fixtures.json', { cache: 'no-store' });
+    const fixtures = await res.json();
+
+    // normalise + tri par date/heure croissante
+    const items = (fixtures || []).map(m => {
+      const dateISO = (m.date && m.time) ? `${m.date}T${m.time}:00` : m.dateISO;
+      return {
+        dateISO,
+        comp:   m.comp || 'Ligue 2',
+        home:   !!m.home,
+        opponent: m.opponent || '—',
+        venue:  m.venue || (m.home ? 'Stade de la Libération' : '—')
+      };
+    }).filter(m => m.dateISO)
+      .sort((a,b) => new Date(a.dateISO) - new Date(b.dateISO));
 
     const grid = document.getElementById("matches-grid");
-    matches.forEach(m => {
-      grid.innerHTML += `
+    grid.innerHTML = items.map(m => {
+      const d = new Date(m.dateISO);
+      const dateStr = d.toLocaleDateString('fr-FR', { weekday:'long', day:'2-digit', month:'long' });
+      const timeStr = d.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
+      const title = m.home ? `USBCO vs ${m.opponent}` : `${m.opponent} vs USBCO`;
+      return `
         <div class="border rounded-lg p-6 shadow hover:shadow-lg transition bg-white">
-          <h2 class="text-2xl font-bold text-red-700 mb-2">USBCO vs ${m.opponent}</h2>
+          <h2 class="text-2xl font-bold text-red-700 mb-2">${title}</h2>
           <p class="text-gray-700">${m.comp}</p>
-          <p class="text-gray-700">${m.date} — ${m.hour}</p>
+          <p class="text-gray-700">${dateStr} — ${timeStr}</p>
           <p class="text-sm text-gray-500 mt-2">${m.home ? "🏟️ Domicile" : "🚌 Extérieur"} — ${m.venue}</p>
           <a href="billetterie.html" class="inline-block mt-4 px-4 py-2 rounded-md border border-red-700 text-red-700 hover:bg-red-700 hover:text-white">Billets</a>
         </div>
       `;
-    });
-  </script>
+    }).join("") || `<div class="text-gray-500">Calendrier à venir…</div>`;
+  } catch (e) {
+    console.error(e);
+    document.getElementById("matches-grid").innerHTML = `<div class="text-gray-500">Calendrier à venir…</div>`;
+  }
+}
+loadAllFixtures();
+</script>
 </body>
 </html>
