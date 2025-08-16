@@ -39,31 +39,10 @@
     <h1 class="relative z-10 text-4xl md:text-5xl font-bold">Billetterie officielle</h1>
   </section>
 
-  <!-- Liste de matchs (exemple) -->
+  <!-- Liste des matchs (générée en JS) -->
   <main class="max-w-7xl mx-auto px-4 py-16">
     <h2 class="text-3xl font-bold mb-8">Choisissez un match</h2>
-    <div class="grid md:grid-cols-2 gap-6">
-      <!-- Match 1 -->
-      <article class="border rounded-xl p-6 bg-white shadow hover:shadow-lg transition">
-        <div class="flex items-center justify-between">
-          <h3 class="text-2xl font-bold text-red-700">USBCO vs FC Rouen</h3>
-          <span class="badge">National</span>
-        </div>
-        <p class="text-gray-700 mt-1">Ven 30 Août — 19:30 — Stade de la Libération</p>
-        <div class="mt-4 flex flex-wrap gap-2">
-          <span class="pill">Tribune Franck Ribéry • 25€</span>
-          <span class="pill">Tribune Ouest B • 25€</span>
-          <span class="pill">Tribune Boulanger • 30€</span>
-        </div>
-        <button
-          class="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-md bg-red-700 text-white hover:bg-red-800"
-          onclick="openSeatMap('USBCO vs FC Rouen','2025-08-30 19:30')">
-          🎟️ Acheter mon billet
-        </button>
-      </article>
-
-      <!-- (Duplique ce bloc pour d'autres matchs si besoin) -->
-    </div>
+    <div id="matchesGrid" class="grid md:grid-cols-2 gap-6"></div>
   </main>
 
   <!-- MODAL : message “plan à venir” -->
@@ -82,8 +61,8 @@
             La sélection précise des places par tribune arrive très vite.<br/>
             En attendant, vous pouvez acheter vos billets sans choix de siège.
           </p>
-          <a href="#"
-             class="inline-block mt-6 px-5 py-3 rounded-md bg-red-700 text-white hover:bg-red-800">
+          <a id="buyNowBtn" href="#"
+             class="inline-block mt-6 px-5 py-3 rounded-md bg-red-700 text-white hover:bg-red-800" target="_blank" rel="noopener">
              Acheter maintenant
           </a>
         </div>
@@ -107,9 +86,89 @@
 
   <!-- Script -->
   <script>
-    function openSeatMap(matchTitle, matchDateTime){
-      document.getElementById('seatModalTitle').textContent = matchTitle;
-      document.getElementById('seatModalSub').textContent  = `Date : ${matchDateTime}`;
+    // 1) TABLEAU DE MATCHS — édite ici pour ajouter/supprimer des rencontres
+    const matches = [
+      {
+        title: "USBCO vs FC Rouen",
+        comp: "National",
+        date: "Ven 30 Août",
+        time: "19:30",
+        venue: "Stade de la Libération",
+        prices: [
+          { name: "Tribune Franck Ribéry", price: "25€" },
+          { name: "Tribune Ouest B",       price: "25€" },
+          { name: "Tribune Boulanger",     price: "30€" },
+        ],
+        buyUrl: "#" // Mets ici l’URL réelle d’achat quand tu l’auras
+      },
+      {
+        title: "USBCO vs Red Star",
+        comp: "National",
+        date: "Ven 6 Sept",
+        time: "20:45",
+        venue: "Stade de la Libération",
+        prices: [
+          { name: "Tribune Franck Ribéry", price: "25€" },
+          { name: "Tribune Ouest B",       price: "25€" },
+          { name: "Tribune Boulanger",     price: "30€" },
+        ],
+        buyUrl: "#"
+      },
+      {
+        title: "USBCO vs US Dunkerque",
+        comp: "Coupe de France",
+        date: "Mer 11 Sept",
+        time: "18:30",
+        venue: "Stade de la Libération",
+        prices: [
+          { name: "Tribune Franck Ribéry", price: "25€" },
+          { name: "Tribune Ouest B",       price: "25€" },
+          { name: "Tribune Boulanger",     price: "30€" },
+        ],
+        buyUrl: "#"
+      },
+      {
+        title: "USBCO vs Châteauroux",
+        comp: "National",
+        date: "Sam 20 Sept",
+        time: "19:00",
+        venue: "Stade de la Libération",
+        prices: [
+          { name: "Tribune Franck Ribéry", price: "25€" },
+          { name: "Tribune Ouest B",       price: "25€" },
+          { name: "Tribune Boulanger",     price: "30€" },
+        ],
+        buyUrl: "#"
+      }
+    ];
+
+    // 2) RENDU DES CARTES
+    const grid = document.getElementById("matchesGrid");
+    grid.innerHTML = matches.map((m, idx) => `
+      <article class="border rounded-xl p-6 bg-white shadow hover:shadow-lg transition">
+        <div class="flex items-center justify-between">
+          <h3 class="text-2xl font-bold text-red-700">${m.title}</h3>
+          <span class="badge">${m.comp}</span>
+        </div>
+        <p class="text-gray-700 mt-1">${m.date} — ${m.time} — ${m.venue}</p>
+        <div class="mt-4 flex flex-wrap gap-2">
+          ${m.prices.map(p => `<span class="pill">${p.name} • ${p.price}</span>`).join("")}
+        </div>
+        <button
+          class="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-md bg-red-700 text-white hover:bg-red-800"
+          onclick="openSeatMap(${idx})">
+          🎟️ Acheter mon billet
+        </button>
+      </article>
+    `).join("");
+
+    // 3) MODAL “PLAN À VENIR” (on garde la même UX)
+    function openSeatMap(index){
+      const m = matches[index];
+      document.getElementById('seatModalTitle').textContent = m.title;
+      document.getElementById('seatModalSub').textContent  = `Date : ${m.date} ${m.time} — ${m.venue}`;
+      const buy = document.getElementById('buyNowBtn');
+      buy.href = m.buyUrl || "#"; // branche ton vrai lien ici quand dispo
       const modal = document.getElementById('seatModal');
       modal.classList.remove('hidden');
       modal.classList.add('flex');
@@ -122,8 +181,6 @@
       modal.classList.remove('flex');
       document.body.classList.remove('overflow-hidden');
     }
-
-    // Fermer avec clic fond + Échap
     document.getElementById('seatModal').addEventListener('click', (e) => {
       if (e.target.id === 'seatModal') closeSeatMap();
     });
