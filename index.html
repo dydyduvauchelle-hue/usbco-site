@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>USBCO — Site officiel (démo)</title>
-  <meta name="description" content="US Boulogne Côte d'Opale : matchs, actus, billetterie, boutique."/>
+  <title>USBCO — Site officiel</title>
+  <meta name="description" content="US Boulogne Côte d'Opale : matchs, billetterie, boutique, actus."/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -18,6 +18,8 @@
     .card { border: 1px solid rgba(0,0,0,0.08); border-radius: 1rem; background: white; }
     .shadow-soft { box-shadow: 0 6px 24px rgba(0,0,0,.08); }
   </style>
+  <!-- Favicon (optionnel) -->
+  <!-- <link rel="icon" href="assets/favicon.png"> -->
 </head>
 <body class="bg-white text-black">
   <!-- Top strip -->
@@ -36,7 +38,10 @@
   <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b">
     <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="assets/logo-usbco.png" alt="USBCO" class="h-9 w-9 rounded-md border bg-white"/>
+        <!-- LOGO -->
+        <img src="./assets/logo-usbco.png"
+             alt="USBCO"
+             class="h-12 w-12 rounded-lg border bg-white object-contain p-1" />
         <span class="font-semibold">USBCO</span>
       </div>
       <div class="hidden md:flex gap-6 text-sm">
@@ -46,7 +51,8 @@
         <a href="#store" class="hover:text-black/70">Boutique</a>
         <a href="#tickets" class="hover:text-black/70">Billetterie</a>
       </div>
-      <a href="#tickets" class="hidden sm:inline-flex px-4 py-2 rounded-md text-white" style="background:#D91E2B">Billetterie</a>
+      <!-- Lien vrai billetterie si tu en as un -->
+      <a href="https://TON-LIEN-BILLETTERIE" class="hidden sm:inline-flex px-4 py-2 rounded-md text-white" style="background:#D91E2B">Billetterie</a>
     </nav>
   </header>
 
@@ -60,11 +66,12 @@
         <p class="mt-4 text-black/70">Site moderne pour suivre l'USBCO : calendrier, actus, billetterie, boutique. Design rouge & noir.</p>
         <div class="mt-6 flex flex-wrap gap-3">
           <a href="#tickets" class="px-5 py-3 rounded-md text-white shadow-soft" style="background:#D91E2B">Prendre ma place</a>
-          <a href="#store" class="px-5 py-3 rounded-md border">Boutique officielle</a>
+          <!-- Lien vrai boutique si tu en as un -->
+          <a href="https://TON-LIEN-BOUTIQUE" class="px-5 py-3 rounded-md border">Boutique officielle</a>
         </div>
       </div>
       <div class="relative rounded-2xl overflow-hidden shadow-soft">
-        <img src="assets/hero.jpg" alt="Stade de la Libération" class="w-full h-auto"/>
+        <img src="./assets/hero.jpg" alt="Stade de la Libération" class="w-full h-auto"/>
       </div>
     </div>
   </section>
@@ -93,16 +100,16 @@
 
   <!-- Tickets + Store -->
   <section id="tickets" class="py-12 bg-black text-white">
-    <div class="container mx-auto px-4 grid md:grid-cols-2 gap-6">
+    <div className="container mx-auto px-4 grid md:grid-cols-2 gap-6">
       <div class="card bg-white/5 border-white/10 p-6">
         <h3 class="text-xl font-semibold mb-2">Billetterie</h3>
         <p class="text-white/80">Réservez vos places pour les prochains matchs au Stade de la Libération.</p>
-        <a href="#" class="inline-block mt-4 px-4 py-2 rounded-md text-white border border-white/30 hover:bg-white hover:text-black">Accéder à la billetterie</a>
+        <a href="https://TON-LIEN-BILLETTERIE" class="inline-block mt-4 px-4 py-2 rounded-md text-white border border-white/30 hover:bg-white hover:text-black">Accéder à la billetterie</a>
       </div>
       <div id="store" class="card bg-white/5 border-white/10 p-6">
         <h3 class="text-xl font-semibold mb-2">Boutique officielle</h3>
         <p class="text-white/80">Maillots, écharpes, training : soutenez le club en rouge et noir.</p>
-        <a href="#" class="inline-block mt-4 px-4 py-2 rounded-md bg-white text-black">Visiter la boutique</a>
+        <a href="https://TON-LIEN-BOUTIQUE" class="inline-block mt-4 px-4 py-2 rounded-md bg-white text-black">Visiter la boutique</a>
       </div>
     </div>
   </section>
@@ -132,7 +139,7 @@
     <div class="container mx-auto px-4 py-8 grid md:grid-cols-4 gap-6 text-sm">
       <div>
         <div class="flex items-center gap-2">
-          <img src="assets/logo-usbco.png" class="h-8 w-8 rounded-md bg-white" alt="USBCO"/>
+          <img src="./assets/logo-usbco.png" class="h-8 w-8 rounded-md bg-white object-contain p-0.5" alt="USBCO"/>
           <span class="font-semibold">USBCO</span>
         </div>
         <p class="mt-3 text-black/60">Site vitrine moderne — version démo. Contenus et images à intégrer.</p>
@@ -170,19 +177,23 @@
     </div>
   </footer>
 
+  <!-- DATA + RENDER -->
   <script>
+    // === Matchs (remplace par tes vrais matchs si tu veux) ===
     const matches = [
-      { date: "Sam 23 Août", comp: "National", home: true, opponent: "USL Dunkerque", hour: "19:00", venue: "Stade de la Libération" },
-      { date: "Ven 29 Août", comp: "National", home: false, opponent: "Red Star", hour: "20:45", venue: "Stade Bauer" },
-      { date: "Ven 5 Sept", comp: "Coupe de France", home: true, opponent: "VAFC", hour: "18:30", venue: "Stade de la Libération" }
+      { date: "Ven 30 Août", comp: "National", home: true,  opponent: "FC Rouen",     hour: "19:30", venue: "Stade de la Libération" },
+      { date: "Ven 6 Sept",  comp: "National", home: false, opponent: "Red Star",     hour: "20:45", venue: "Stade Bauer" },
+      { date: "Mer 11 Sept", comp: "CdF",      home: true,  opponent: "US Dunkerque", hour: "18:30", venue: "Stade de la Libération" },
     ];
 
+    // === Actus (remplace par tes vraies actus) ===
     const news = [
-      { title: "Présentation du nouveau maillot 24/25", tag: "Club", date: "16/08/2025" },
-      { title: "USBCO 2–1 FC Rouen : le résumé", tag: "Match", date: "12/08/2025" },
-      { title: "Abonnements : offre rentrée prolongée", tag: "Billetterie", date: "10/08/2025" }
+      { title: "USBCO lance sa campagne d’abonnements", tag: "Billetterie", date: "16/08/2025" },
+      { title: "Victoire 2–0 en amical face à Calais",  tag: "Match",      date: "14/08/2025" },
+      { title: "Ouverture de la nouvelle boutique",     tag: "Club",       date: "10/08/2025" },
     ];
 
+    // Rendu Matchs
     const mGrid = document.getElementById('matches-grid');
     matches.forEach(m => {
       const el = document.createElement('div');
@@ -205,6 +216,7 @@
       mGrid.appendChild(el);
     });
 
+    // Rendu Actus
     const nGrid = document.getElementById('news-grid');
     news.forEach(n => {
       const el = document.createElement('div');
