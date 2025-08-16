@@ -164,25 +164,37 @@
       </div>
     `).join("");
   </script>
-  <script>
-async function loadFixtures() {
-  const res = await fetch("./assets/fixtures.json");
-  const fixtures = await res.json();
+<script>
+async function loadFixtures(limit=3) {
+  try {
+    const res = await fetch('./assets/fixtures.json', { cache: 'no-store' });
+    const data = await res.json();
+    const items = (data || []).map(m => {
+      const dateISO = m.dateISO || (m.date && m.time ? `${m.date}T${m.time}:00` : null);
+      return { dateISO, comp:m.comp||'Ligue 2 BKT', home:m.home===true, opponent:m.opponent||'À venir', venue:m.venue||'À déterminer' };
+    }).filter(e => e.dateISO)
+      .sort((a,b) => new Date(a.dateISO) - new Date(b.dateISO));
 
-  // 3 prochains matchs
-  const matchesList = document.getElementById("matches-list");
-  matchesList.innerHTML = "";
-  fixtures.slice(0, 3).forEach(m => {
-    matchesList.innerHTML += `
-      <div class="border rounded-lg p-4 shadow hover:shadow-lg transition">
-        <h3 class="font-bold text-xl text-red-700">${m.opponent}</h3>
-        <p>${m.date} à ${m.time}</p>
-        <p>${m.home ? "Domicile" : "Extérieur"} — ${m.venue}</p>
-      </div>
-    `;
-  });
+    const upcoming = items.filter(e => new Date(e.dateISO) >= new Date()).slice(0, limit);
+    const box = document.getElementById('matches-list');
+    box.innerHTML = upcoming.map(m => {
+      const d = new Date(m.dateISO);
+      const dateStr = d.toLocaleDateString('fr-FR',{weekday:'short', day:'2-digit', month:'short'});
+      const timeStr = d.toLocaleTimeString('fr-FR',{hour:'2-digit', minute:'2-digit'});
+      const title = m.home ? `USBCO vs ${m.opponent}` : `${m.opponent} vs USBCO`;
+      return `
+        <div class="border rounded-lg p-4 shadow hover:shadow-lg transition">
+          <h3 class="font-bold text-xl text-red-700">${title}</h3>
+          <p>${m.comp} — ${dateStr} à ${timeStr}</p>
+          <p>${m.home ? "Domicile" : "Extérieur"} — ${m.venue}</p>
+        </div>`;
+    }).join('') || `<div class="text-gray-500">Prochainement…</div>`;
+  } catch (e) {
+    console.error(e);
+    document.getElementById('matches-list').innerHTML = `<div class="text-gray-500">Prochainement…</div>`;
+  }
 }
-loadFixtures();
+loadFixtures(3);
 </script>
 </body>
 </html>
