@@ -9,7 +9,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white text-gray-900">
-  <!-- Header / Navbar -->
+  <!-- Header -->
   <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
     <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-3">
       <div class="flex items-center gap-3">
@@ -33,7 +33,7 @@
     <div class="absolute inset-0 bg-black/50"></div>
     <div class="relative z-10">
       <h1 class="text-4xl md:text-5xl font-bold">Allez l’USBCO !</h1>
-      <p class="mt-4 text-lg">Site officiel (démo) — tout intégré : actus, billetterie, boutique.</p>
+      <p class="mt-4 text-lg">Site officiel — matchs, billetterie, boutique, actus.</p>
       <a href="#billetterie"
          class="mt-6 inline-block px-6 py-3 rounded-md bg-red-700 text-white font-bold">Billetterie</a>
     </div>
@@ -51,22 +51,20 @@
     <div id="news-list" class="grid sm:grid-cols-3 gap-6"></div>
   </section>
 
-  <!-- Billetterie (intégrée) -->
+  <!-- Billetterie -->
   <section id="billetterie" class="py-16 bg-black text-white">
     <div class="max-w-7xl mx-auto px-4">
       <h2 class="text-3xl font-bold mb-2">Billetterie</h2>
       <p class="text-white/80 mb-8">Réservez vos places pour le Stade de la Libération.</p>
 
-      <!-- Offres rapides -->
       <div id="tickets-grid" class="grid md:grid-cols-3 gap-6"></div>
 
-      <!-- Abonnements / Infos -->
       <div class="mt-10 grid md:grid-cols-2 gap-6">
         <div class="border border-white/10 rounded-xl p-6 bg-white/5">
           <h3 class="text-xl font-semibold mb-3">Abonnements</h3>
           <ul class="space-y-2 text-white/80">
-            <li>🔴 Tribune Honneur : à partir de 149€</li>
-            <li>⚫ Tribune Nord/Sud : à partir de 99€</li>
+            <li>🔴 Tribune Honneur : dès 149€</li>
+            <li>⚫ Tribune Nord/Sud : dès 99€</li>
             <li>👨‍👩‍👧 Pack Famille : -20% dès 3 places</li>
           </ul>
         </div>
@@ -82,7 +80,7 @@
     </div>
   </section>
 
-  <!-- Boutique (intégrée) -->
+  <!-- Boutique -->
   <section id="boutique" class="py-16 max-w-7xl mx-auto px-4">
     <h2 class="text-3xl font-bold mb-8">Boutique officielle</h2>
     <div id="shop-grid" class="grid sm:grid-cols-3 gap-6"></div>
@@ -99,8 +97,7 @@
     <h2 class="text-3xl font-bold mb-8">Le club</h2>
     <p class="text-lg leading-relaxed">
       L’US Boulogne Côte d’Opale est un club historique des Hauts-de-France.
-      Cette démo centralise les infos essentielles et simule une billetterie/boutique intégrées.
-      Quand tu voudras un domaine (ex: <em>usbco.fr</em>), on créera des sous-domaines dédiés.
+      Ce site démo centralise toutes les infos : actualités, matchs, billetterie et boutique intégrées.
     </p>
   </section>
 
@@ -116,7 +113,7 @@
     </div>
   </footer>
 
-  <!-- Script (Données + rendu) -->
+  <!-- Script -->
   <script>
     // Matchs
     const matches = [
@@ -132,14 +129,14 @@
       { title: "Ouverture de la nouvelle boutique",     tag: "Club",       date: "10/08/2025" },
     ];
 
-    // Billetterie (cartes d'achat rapides — simulation)
+    // Billetterie
     const tickets = [
       { name: "Place Standard", price: "12€",  desc: "Tribunes Nord/Sud", cta: "Choisir ma place" },
       { name: "Place Honneur",  price: "20€",  desc: "Tribune Honneur",   cta: "Choisir ma place" },
       { name: "Abonnement",     price: "dès 99€", desc: "Saison complète", cta: "Souscrire" },
     ];
 
-    // Boutique (produits — simulation)
+    // Boutique
     const products = [
       { name: "Maillot domicile 24/25", price: "69€", img: "./assets/hero.jpg" },
       { name: "Écharpe USBCO",          price: "15€", img: "./assets/hero.jpg" },
