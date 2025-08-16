@@ -1,192 +1,63 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>USBCO — Billetterie</title>
-  <meta name="description" content="Billetterie officielle de l’US Boulogne Côte d’Opale." />
+  <meta name="description" content="Billetterie officielle USBCO pour les matchs de Ligue 2 BKT.">
   <link rel="icon" type="image/png" href="./assets/favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    html{scroll-behavior:smooth}
-    .pill { display:inline-block; padding:.15rem .6rem; border-radius:999px; border:1px solid rgba(0,0,0,.12); background:#fff; }
-    .badge{ font-size:.8rem; padding:.15rem .45rem; border-radius:.4rem; background:#f3f4f6; }
-  </style>
 </head>
-<body class="bg-white text-gray-900">
-  <!-- Header -->
-  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
-    <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-3">
-      <a href="index.html" class="flex items-center gap-3 group">
-        <img src="./assets/logo-usbco.png" alt="USBCO"
-             class="h-12 w-12 rounded-lg border bg-white object-contain p-1 group-hover:opacity-90 transition" />
-        <span class="font-bold text-xl text-red-700 group-hover:text-red-800 transition">US Boulogne Côte d’Opale</span>
-      </a>
-      <nav class="flex gap-6 items-center">
-        <a href="matchs.html" class="hover:text-red-600">Matchs</a>
-        <a href="actus.html" class="hover:text-red-600">Actus</a>
-        <a href="billetterie.html" class="text-red-700 font-bold">Billetterie</a>
-        <a href="boutique.html" class="hover:text-red-600">Boutique</a>
-        <a href="club.html" class="hover:text-red-600">Le club</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Hero -->
-  <section class="relative h-[40vh] flex items-center justify-center text-center text-white">
-    <img src="./assets/hero.jpg" alt="Billetterie USBCO" class="absolute inset-0 w-full h-full object-cover" />
-    <div class="absolute inset-0 bg-black/50"></div>
-    <h1 class="relative z-10 text-4xl md:text-5xl font-bold">Billetterie officielle</h1>
-  </section>
-
-  <!-- Liste des matchs (générée en JS) -->
-  <main class="max-w-7xl mx-auto px-4 py-16">
-    <h2 class="text-3xl font-bold mb-8">Choisissez un match</h2>
-    <div id="matchesGrid" class="grid md:grid-cols-2 gap-6"></div>
-  </main>
-
-  <!-- MODAL : message “plan à venir” -->
-  <div id="seatModal" class="fixed inset-0 hidden z-[60] items-center justify-center bg-black/70 p-4">
-    <div class="relative w-full max-w-xl bg-white rounded-2xl shadow-2xl overflow-hidden">
-      <button type="button" onclick="closeSeatMap()"
-              class="absolute top-3 right-3 rounded-md bg-black/80 text-white px-3 py-2 hover:bg-black">✕</button>
-
-      <div class="p-8 text-center">
-        <h3 id="seatModalTitle" class="text-2xl font-bold">Sélection de place</h3>
-        <p id="seatModalSub" class="text-sm text-gray-600 mt-1"></p>
-
-        <div class="mt-6 p-6 rounded-lg border bg-gray-50">
-          <h4 class="text-xl font-semibold mb-2">Plan du stade en cours de mise à jour</h4>
-          <p class="text-gray-600">
-            La sélection précise des places par tribune arrive très vite.<br/>
-            En attendant, vous pouvez acheter vos billets sans choix de siège.
-          </p>
-          <a id="buyNowBtn" href="#"
-             class="inline-block mt-6 px-5 py-3 rounded-md bg-red-700 text-white hover:bg-red-800" target="_blank" rel="noopener">
-             Acheter maintenant
-          </a>
-        </div>
-
-        <p class="text-xs text-gray-500 mt-4">(Simulation : pas de paiement réel)</p>
-      </div>
-    </div>
+<body class="bg-gray-100 text-gray-900">
+  <div class="max-w-3xl mx-auto p-6">
+    <a href="matchs.html" class="text-red-700 hover:underline">&larr; Retour aux matchs</a>
+    <div id="billetterie-content" class="mt-6"></div>
   </div>
 
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-white py-6">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center">
-      <p>© 2025 US Boulogne Côte d’Opale. Tous droits réservés.</p>
-      <div class="flex gap-4 mt-4 sm:mt-0">
-        <a href="#" target="_blank">Facebook</a>
-        <a href="#" target="_blank">Twitter</a>
-        <a href="#" target="_blank">Instagram</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Script -->
   <script>
-    // 1) TABLEAU DE MATCHS — édite ici pour ajouter/supprimer des rencontres
-    const matches = [
-      {
-        title: "USBCO vs FC Rouen",
-        comp: "National",
-        date: "Ven 30 Août",
-        time: "19:30",
-        venue: "Stade de la Libération",
-        prices: [
-          { name: "Tribune Franck Ribéry", price: "25€" },
-          { name: "Tribune Ouest B",       price: "25€" },
-          { name: "Tribune Boulanger",     price: "30€" },
-        ],
-        buyUrl: "#" // Mets ici l’URL réelle d’achat quand tu l’auras
-      },
-      {
-        title: "USBCO vs Red Star",
-        comp: "National",
-        date: "Ven 6 Sept",
-        time: "20:45",
-        venue: "Stade de la Libération",
-        prices: [
-          { name: "Tribune Franck Ribéry", price: "25€" },
-          { name: "Tribune Ouest B",       price: "25€" },
-          { name: "Tribune Boulanger",     price: "30€" },
-        ],
-        buyUrl: "#"
-      },
-      {
-        title: "USBCO vs US Dunkerque",
-        comp: "Coupe de France",
-        date: "Mer 11 Sept",
-        time: "18:30",
-        venue: "Stade de la Libération",
-        prices: [
-          { name: "Tribune Franck Ribéry", price: "25€" },
-          { name: "Tribune Ouest B",       price: "25€" },
-          { name: "Tribune Boulanger",     price: "30€" },
-        ],
-        buyUrl: "#"
-      },
-      {
-        title: "USBCO vs Châteauroux",
-        comp: "National",
-        date: "Sam 20 Sept",
-        time: "19:00",
-        venue: "Stade de la Libération",
-        prices: [
-          { name: "Tribune Franck Ribéry", price: "25€" },
-          { name: "Tribune Ouest B",       price: "25€" },
-          { name: "Tribune Boulanger",     price: "30€" },
-        ],
-        buyUrl: "#"
+  async function loadBilletterie() {
+    const params = new URLSearchParams(window.location.search);
+    const matchId = params.get("match");
+
+    try {
+      const res = await fetch("./assets/fixtures.json", { cache: "no-store" });
+      const data = await res.json();
+      const match = data.find(m => m.id === matchId);
+
+      const box = document.getElementById("billetterie-content");
+      if (!match) {
+        box.innerHTML = `<p class="text-gray-600">Match introuvable.</p>`;
+        return;
       }
-    ];
 
-    // 2) RENDU DES CARTES
-    const grid = document.getElementById("matchesGrid");
-    grid.innerHTML = matches.map((m, idx) => `
-      <article class="border rounded-xl p-6 bg-white shadow hover:shadow-lg transition">
-        <div class="flex items-center justify-between">
-          <h3 class="text-2xl font-bold text-red-700">${m.title}</h3>
-          <span class="badge">${m.comp}</span>
-        </div>
-        <p class="text-gray-700 mt-1">${m.date} — ${m.time} — ${m.venue}</p>
-        <div class="mt-4 flex flex-wrap gap-2">
-          ${m.prices.map(p => `<span class="pill">${p.name} • ${p.price}</span>`).join("")}
-        </div>
-        <button
-          class="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-md bg-red-700 text-white hover:bg-red-800"
-          onclick="openSeatMap(${idx})">
-          🎟️ Acheter mon billet
-        </button>
-      </article>
-    `).join("");
+      const title = match.home ? `USBCO vs ${match.opponent}` : `${match.opponent} vs USBCO`;
+      let content = `
+        <h1 class="text-3xl font-bold text-red-700 mb-4">${title}</h1>
+        <p class="text-gray-700 mb-2">${match.comp}</p>
+        <p class="text-gray-700 mb-6">${new Date(match.dateISO).toLocaleDateString("fr-FR",{weekday:"long",day:"2-digit",month:"long"})} — ${new Date(match.dateISO).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}</p>
+      `;
 
-    // 3) MODAL “PLAN À VENIR” (on garde la même UX)
-    function openSeatMap(index){
-      const m = matches[index];
-      document.getElementById('seatModalTitle').textContent = m.title;
-      document.getElementById('seatModalSub').textContent  = `Date : ${m.date} ${m.time} — ${m.venue}`;
-      const buy = document.getElementById('buyNowBtn');
-      buy.href = m.buyUrl || "#"; // branche ton vrai lien ici quand dispo
-      const modal = document.getElementById('seatModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      document.body.classList.add('overflow-hidden');
+      if (match.home) {
+        content += `
+          <p class="mb-4">Choisissez votre place au <b>Stade de la Libération</b> :</p>
+          <img src="./assets/stade-plan.png" alt="Plan Stade de la Libération" class="w-full rounded-lg shadow mb-6"/>
+          <a href="https://ton-site-de-vente.com/${match.id}" class="inline-block px-6 py-3 bg-red-700 text-white rounded-lg shadow hover:bg-red-800 transition">Réserver</a>
+        `;
+      } else {
+        content += `
+          <p class="mb-4">Billets uniquement disponibles pour le <b>parcage visiteurs</b>.</p>
+          <img src="./assets/parcage-visiteur.png" alt="Parcage visiteurs" class="w-full rounded-lg shadow mb-6"/>
+          <a href="https://ton-site-de-vente.com/${match.id}" class="inline-block px-6 py-3 bg-red-700 text-white rounded-lg shadow hover:bg-red-800 transition">Réserver</a>
+        `;
+      }
+
+      box.innerHTML = content;
+    } catch (e) {
+      console.error(e);
+      document.getElementById("billetterie-content").innerHTML = `<p class="text-gray-600">Erreur de chargement…</p>`;
     }
-
-    function closeSeatMap(){
-      const modal = document.getElementById('seatModal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-      document.body.classList.remove('overflow-hidden');
-    }
-    document.getElementById('seatModal').addEventListener('click', (e) => {
-      if (e.target.id === 'seatModal') closeSeatMap();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeSeatMap();
-    });
+  }
+  loadBilletterie();
   </script>
 </body>
 </html>
