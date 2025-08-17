@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>USBCO — Abonnements</title>
+  <meta name="description" content="Abonnements officiels USBCO — choisissez votre tribune et recevez votre carte abonné.">
+  <link rel="icon" type="image/png" href="./assets/favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-900">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-3">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <img src="./assets/logo-usbco.png" alt="USBCO" class="h-12 w-12 rounded-lg border bg-white object-contain p-1 group-hover:opacity-90 transition" />
+        <span class="font-bold text-xl text-red-700 group-hover:text-red-800 transition">US Boulogne Côte d’Opale</span>
+      </a>
+      <nav class="flex gap-6 items-center">
+        <a href="matchs.html" class="hover:text-red-600">Matchs</a>
+        <a href="actus.html" class="hover:text-red-600">Actus</a>
+        <a href="billetterie.html?match=next-home" class="hover:text-red-600">Billetterie</a>
+        <a href="abonnements.html" class="text-red-700 font-bold">Abonnements</a>
+        <a href="boutique.html" class="hover:text-red-600">Boutique</a>
+        <a href="club.html" class="hover:text-red-600">Le club</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative h-[36vh] flex items-center justify-center text-center text-white">
+    <img src="./assets/hero.jpg" alt="Abonnements USBCO" class="absolute inset-0 w-full h-full object-cover">
+    <div class="absolute inset-0 bg-black/50"></div>
+    <div class="relative z-10">
+      <h1 class="text-4xl md:text-5xl font-bold">Abonnements USBCO 2025-2026</h1>
+      <p class="mt-2 text-white/90">Choisis ta tribune, profite de tarifs avantageux et reçois ta carte par e-mail.</p>
+    </div>
+  </section>
+
+  <!-- Cards -->
+  <main class="py-16 max-w-7xl mx-auto px-4">
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Ribéry -->
+      <div class="border rounded-2xl p-6 shadow hover:shadow-lg transition bg-white">
+        <h2 class="text-2xl font-bold text-red-700">Tribune Franck Ribéry</h2>
+        <p class="text-sm text-gray-600 mt-1">Haut du stade — sièges rouges</p>
+        <p class="mt-4 text-3xl font-extrabold">189€</p>
+        <ul class="mt-4 space-y-2 text-sm">
+          <li>✔ Accès tous les matchs de L2 à domicile</li>
+          <li>✔ E-carte d’abonné immédiate</li>
+          <li>✔ -10% boutique</li>
+        </ul>
+        <a href="checkout.html?plan=ribery&price=18900&zone=ribery"
+           class="mt-6 inline-block w-full text-center px-4 py-2 rounded-md bg-red-700 text-white hover:bg-red-800 transition">
+          S’abonner
+        </a>
+      </div>
+
+      <!-- Ouest B -->
+      <div class="border rounded-2xl p-6 shadow hover:shadow-lg transition bg-white">
+        <h2 class="text-2xl font-bold text-gray-900">Tribune Ouest B</h2>
+        <p class="text-sm text-gray-600 mt-1">Droite — sièges noirs</p>
+        <p class="mt-4 text-3xl font-extrabold">159€</p>
+        <ul class="mt-4 space-y-2 text-sm">
+          <li>✔ Accès tous les matchs de L2 à domicile</li>
+          <li>✔ E-carte d’abonné immédiate</li>
+          <li>✔ -5% boutique</li>
+        </ul>
+        <a href="checkout.html?plan=ouest-b&price=15900&zone=ouest-b"
+           class="mt-6 inline-block w-full text-center px-4 py-2 rounded-md bg-gray-900 text-white hover:bg-black transition">
+          S’abonner
+        </a>
+      </div>
+
+      <!-- Boulanger -->
+      <div class="border rounded-2xl p-6 shadow hover:shadow-lg transition bg-white">
+        <h2 class="text-2xl font-bold text-red-700">Tribune Boulanger</h2>
+        <p class="text-sm text-gray-600 mt-1">Bas — sièges rouges</p>
+        <p class="mt-4 text-3xl font-extrabold">129€</p>
+        <ul class="mt-4 space-y-2 text-sm">
+          <li>✔ Accès tous les matchs de L2 à domicile</li>
+          <li>✔ E-carte d’abonné immédiate</li>
+          <li>✔ Tarif famille disponible</li>
+        </ul>
+        <a href="checkout.html?plan=boulanger&price=12900&zone=boulanger"
+           class="mt-6 inline-block w-full text-center px-4 py-2 rounded-md bg-red-700 text-white hover:bg-red-800 transition">
+          S’abonner
+        </a>
+      </div>
+    </div>
+
+    <!-- Encarts -->
+    <div class="mt-12 grid md:grid-cols-3 gap-6 text-sm">
+      <div class="p-4 border rounded-xl bg-white">🎁 <b>Avantages</b> : priorité billetterie, -10% boutique (Ribéry), -5% (Ouest B).</div>
+      <div class="p-4 border rounded-xl bg-white">📩 <b>Réception</b> : carte digitale reçue par e-mail + téléchargement immédiat.</div>
+      <div class="p-4 border rounded-xl bg-white">📍 <b>Placement</b> : zones selon plan du stade (vue billetterie).</div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-6">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+      <p>© 2025 US Boulogne Côte d’Opale</p>
+      <a href="billetterie.html" class="hover:underline">Billetterie</a>
+    </div>
+  </footer>
+</body>
+</html>
