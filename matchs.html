@@ -56,40 +56,46 @@
   async function loadAllFixtures() {
     try {
       const res = await fetch('./assets/fixtures.json', { cache: 'no-store' });
-      const fixtures = await res.json();
+      const raw = await res.json();
 
-      const items = (fixtures || []).map(m => {
-        const dateISO = m.dateISO || (m.date && m.time ? `${m.date}T${m.time}:00` : null);
-        return {
-          id: m.id,
-          dateISO,
-          comp:   m.comp || 'Ligue 2 BKT',
-          home:   m.home === true,
-          opponent: m.opponent || 'À venir',
-          venue:  m.venue || (m.home ? 'Stade de la Libération' : 'À déterminer')
-        };
-      }).filter(m => m.dateISO)
-        .sort((a,b) => new Date(a.dateISO) - new Date(b.dateISO));
+      const fixtures = (raw || []).map(m => ({
+        id: m.id,
+        dateISO: m.dateISO || (m.date && m.time ? `${m.date}T${m.time}:00` : null),
+        comp: m.comp || 'Ligue 2 BKT',
+        home: m.home === true,
+        opponent: m.opponent || 'À venir',
+        venue: m.venue || (m.home ? 'Stade de la Libération' : 'À déterminer')
+      }))
+      .filter(m => m.dateISO)
+      .sort((a,b) => new Date(a.dateISO) - new Date(b.dateISO));
 
       const grid = document.getElementById("matches-grid");
-      grid.innerHTML = items.map(m => {
+
+      if (!fixtures.length) {
+        grid.innerHTML = `<div class="text-gray-500">Calendrier à venir…</div>`;
+        return;
+      }
+
+      grid.innerHTML = fixtures.map(m => {
         const d = new Date(m.dateISO);
         const dateStr = d.toLocaleDateString('fr-FR',{weekday:'long', day:'2-digit', month:'long'});
         const timeStr = d.toLocaleTimeString('fr-FR',{hour:'2-digit', minute:'2-digit'});
         const title = m.home ? `USBCO vs ${m.opponent}` : `${m.opponent} vs USBCO`;
 
         return `
-          <div class="border rounded-lg p-6 shadow hover:shadow-lg transition bg-white">
-            <h2 class="text-2xl font-bold text-red-700 mb-2">${title}</h2>
-            <p class="text-gray-700">${m.comp}</p>
-            <p class="text-gray-700">${dateStr} — ${timeStr}</p>
-            <p class="text-sm text-gray-500 mt-2">${m.home ? "🏟️ Domicile" : "🚌 Extérieur"} — ${m.venue}</p>
+          <div class="border rounded-lg p-6 shadow hover:shadow-lg transition bg-white flex flex-col justify-between">
+            <div>
+              <h2 class="text-2xl font-bold text-red-700 mb-2">${title}</h2>
+              <p class="text-gray-700">${m.comp}</p>
+              <p class="text-gray-700">${dateStr} — ${timeStr}</p>
+              <p class="text-sm text-gray-500 mt-2">${m.home ? "🏟️ Domicile" : "🚌 Extérieur"} — ${m.venue}</p>
+            </div>
             <a href="billetterie.html?match=${m.id}" 
-               class="inline-block mt-4 px-4 py-2 rounded-md border border-red-700 text-red-700 hover:bg-red-700 hover:text-white">
-               Billets
+               class="mt-6 inline-block text-center px-4 py-2 rounded-md bg-red-700 text-white hover:bg-red-800 transition">
+               Réserver
             </a>
           </div>`;
-      }).join("") || `<div class="text-gray-500">Calendrier à venir…</div>`;
+      }).join("");
     } catch (e) {
       console.error(e);
       document.getElementById("matches-grid").innerHTML = `<div class="text-gray-500">Calendrier à venir…</div>`;
