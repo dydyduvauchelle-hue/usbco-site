@@ -1,1 +1,84 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" aria-labelledby="title desc" role="img">
+  <title>Stade de la Libération — USBCO</title>
+  <desc>Plan stylisé et fidèle au Stade de la Libération avec tribunes, zones, et pelouse.</desc>
 
+  <!-- Fond -->
+  <rect x="0" y="0" width="1200" height="800" fill="#f4f4f5"/>
+
+  <!-- Pelouse -->
+  <rect x="250" y="150" width="700" height="500" fill="#5aa15a" stroke="#2f7f2f" stroke-width="4" rx="6"/>
+  <!-- Lignes de jeu -->
+  <rect x="250" y="150" width="700" height="500" fill="none" stroke="#ffffff" stroke-width="3" rx="6"/>
+  <line x1="600" y1="150" x2="600" y2="650" stroke="#ffffff" stroke-width="3"/>
+  <circle cx="600" cy="400" r="60" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <circle cx="600" cy="400" r="2" fill="#ffffff"/>
+
+  <!-- Surfaces -->
+  <!-- But gauche -->
+  <rect x="250" y="300" width="60" height="200" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <rect x="250" y="220" width="180" height="360" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <arc />
+  <!-- But droit -->
+  <rect x="890" y="300" width="60" height="200" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <rect x="770" y="220" width="180" height="360" fill="none" stroke="#ffffff" stroke-width="3"/>
+
+  <!-- Repères buts -->
+  <circle cx="420" cy="400" r="2" fill="#ffffff"/>
+  <circle cx="780" cy="400" r="2" fill="#ffffff"/>
+
+  <!-- Tribunes (formes proches du réel : 4 côtés + virages plus courts) -->
+  <!-- Tribune HONOREZ (principale, côté bas) -->
+  <g id="tribune-honorez">
+    <rect x="240" y="660" width="720" height="80" rx="8" fill="#dcdfe3" stroke="#111827" stroke-width="2"/>
+    <text x="600" y="710" text-anchor="middle" font-size="22" font-family="Inter, system-ui" fill="#111827">Tribune Honorez (Principale)</text>
+  </g>
+
+  <!-- Tribune COUBERTIN (latérale haute) -->
+  <g id="tribune-coubertin">
+    <rect x="240" y="60" width="720" height="80" rx="8" fill="#dcdfe3" stroke="#111827" stroke-width="2"/>
+    <text x="600" y="112" text-anchor="middle" font-size="22" font-family="Inter, system-ui" fill="#111827">Tribune Coubertin</text>
+  </g>
+
+  <!-- Tribune POPULAIRE (côté gauche, avec parcage en haut-gauche) -->
+  <g id="tribune-populaire">
+    <rect x="110" y="160" width="120" height="480" rx="8" fill="#dcdfe3" stroke="#111827" stroke-width="2"/>
+    <text transform="translate(135,400) rotate(-90)" text-anchor="middle" font-size="22" font-family="Inter, system-ui" fill="#111827">Populaire</text>
+  </g>
+
+  <!-- Tribune OUEST (côté droit) -->
+  <g id="tribune-ouest">
+    <rect x="970" y="160" width="120" height="480" rx="8" fill="#dcdfe3" stroke="#111827" stroke-width="2"/>
+    <text transform="translate(995,400) rotate(90)" text-anchor="middle" font-size="22" font-family="Inter, system-ui" fill="#111827">Ouest</text>
+  </g>
+
+  <!-- Virages (courts) -->
+  <!-- Virage Haut-Gauche (Parcage Visiteurs) -->
+  <g id="parcage-visiteurs">
+    <rect x="190" y="100" width="120" height="60" rx="8" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+    <text x="250" y="135" text-anchor="middle" font-size="18" font-family="Inter, system-ui" fill="#b91c1c">Parcage visiteurs</text>
+  </g>
+
+  <!-- Virage Haut-Droit -->
+  <g id="virage-haut-droit">
+    <rect x="890" y="100" width="120" height="60" rx="8" fill="#e5e7eb" stroke="#111827" stroke-width="2"/>
+  </g>
+
+  <!-- Virage Bas-Gauche -->
+  <g id="virage-bas-gauche">
+    <rect x="190" y="740" width="120" height="30" rx="6" fill="#e5e7eb" stroke="#111827" stroke-width="2"/>
+  </g>
+
+  <!-- Virage Bas-Droit -->
+  <g id="virage-bas-droit">
+    <rect x="890" y="740" width="120" height="30" rx="6" fill="#e5e7eb" stroke="#111827" stroke-width="2"/>
+  </g>
+
+  <!-- Légende simple -->
+  <g id="legende">
+    <rect x="40" y="40" width="260" height="120" rx="10" fill="#ffffff" stroke="#e5e7eb"/>
+    <circle cx="70" cy="80" r="8" fill="#dcdfe3" stroke="#111827"/>
+    <text x="90" y="85" font-size="16" font-family="Inter, system-ui" fill="#111827">Tribune</text>
+    <rect x="60" y="100" width="20" height="12" fill="#fee2e2" stroke="#b91c1c"/>
+    <text x="90" y="110" font-size="16" font-family="Inter, system-ui" fill="#111827">Parcage visiteurs</text>
+  </g>
+</svg>
