@@ -1,6 +1,6 @@
 <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" aria-labelledby="title desc" role="img">
   <title>Stade de la Libération — Visuel billetterie</title>
-  <desc>Terrain + piste, tribunes et parcage visiteurs ajusté (décalé à droite pour ne pas toucher).</desc>
+  <desc>Terrain + piste, tribunes cliquables et parcage visiteurs ajusté.</desc>
 
   <!-- Fond -->
   <rect width="1200" height="800" fill="#f6f7f9"/>
@@ -8,6 +8,7 @@
   <!-- ===================== TERRAIN + PISTE ===================== -->
   <!-- Piste extérieure -->
   <rect x="220" y="160" width="760" height="480" rx="120" ry="120" fill="#d9482b"/>
+  <!-- Découpe intérieure -->
   <rect x="260" y="200" width="680" height="400" rx="95" ry="95" fill="#f6f7f9"/>
 
   <!-- Terrain -->
@@ -26,29 +27,31 @@
   <circle cx="770" cy="400" r="2.5" fill="#ffffff"/>
 
   <!-- ===================== TRIBUNES ===================== -->
-  <!-- Tribune Ribéry -->
-  <text x="600" y="60" text-anchor="middle" font-size="24" font-family="Inter, system-ui" fill="#111827">Tribune Ribéry</text>
-  <rect x="260" y="90" width="680" height="70" rx="10" ry="10" fill="#e11d48" stroke="#991b1b" stroke-width="2"/>
+  <!-- Label Ribéry (ne bloque pas les clics) -->
+  <text x="600" y="60" text-anchor="middle" font-size="24" font-family="Inter, system-ui" fill="#111827" pointer-events="none">Tribune Ribéry</text>
+  <!-- Ribéry -->
+  <rect id="tribune-coubertin" x="260" y="90" width="680" height="70" rx="10" ry="10" fill="#e11d48" stroke="#991b1b" stroke-width="2"/>
 
-  <!-- Tribune Boulanger -->
-  <rect x="260" y="640" width="680" height="70" rx="10" ry="10" fill="#e11d48" stroke="#991b1b" stroke-width="2"/>
-  <text x="600" y="740" text-anchor="middle" font-size="24" font-family="Inter, system-ui" fill="#111827">Tribune Boulanger</text>
+  <!-- Boulanger -->
+  <rect id="tribune-honorez" x="260" y="640" width="680" height="70" rx="10" ry="10" fill="#e11d48" stroke="#991b1b" stroke-width="2"/>
+  <!-- Label Boulanger -->
+  <text x="600" y="740" text-anchor="middle" font-size="24" font-family="Inter, system-ui" fill="#111827" pointer-events="none">Tribune Boulanger</text>
 
-  <!-- Tribune Ouest B -->
-  <rect x="1000" y="210" width="90" height="380" rx="10" ry="10" fill="#0b0b0f" stroke="#1f2937" stroke-width="2"/>
-  <g transform="translate(1105,210)">
+  <!-- Ouest B -->
+  <rect id="tribune-ouest" x="1000" y="210" width="90" height="380" rx="10" ry="10" fill="#0b0b0f" stroke="#1f2937" stroke-width="2"/>
+  <!-- Label Ouest B -->
+  <g transform="translate(1105,210)" pointer-events="none">
     <text transform="rotate(90)" x="190" y="0" text-anchor="middle" font-size="24" font-family="Inter, system-ui" fill="#111827">Tribune Ouest B</text>
   </g>
 
   <!-- ===================== PARCAGE VISITEURS ===================== -->
   <g id="parcage-visiteurs">
-    <!-- Décalé un peu à droite -->
     <rect x="945" y="130" width="70" height="70" transform="rotate(45 980 165)" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3" rx="8" ry="8"/>
-    <text x="980" y="110" text-anchor="middle" font-size="16" font-family="Inter, system-ui" fill="#1d4ed8">Parcage visiteurs</text>
+    <text x="980" y="110" text-anchor="middle" font-size="16" font-family="Inter, system-ui" fill="#1d4ed8" pointer-events="none">Parcage visiteurs</text>
   </g>
 
-  <!-- Ombres légères -->
-  <g opacity="0.08">
+  <!-- Ombres (ne bloquent pas les clics) -->
+  <g opacity="0.08" pointer-events="none">
     <rect x="260" y="90"  width="680" height="70" rx="10" ry="10" fill="#000"/>
     <rect x="260" y="640" width="680" height="70" rx="10" ry="10" fill="#000"/>
     <rect x="1000" y="210" width="90"  height="380" rx="10" ry="10" fill="#000"/>
