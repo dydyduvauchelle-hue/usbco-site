@@ -7,166 +7,161 @@
   <meta name="description" content="Billetterie officielle USBCO pour les matchs de Ligue 2 BKT.">
   <link rel="icon" type="image/png" href="./assets/favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Librairie PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body class="bg-gray-100 text-gray-900">
   <div class="max-w-3xl mx-auto p-6">
     <a href="matchs.html" class="text-red-700 hover:underline">&larr; Retour aux matchs</a>
     <div id="billetterie-content" class="mt-6"></div>
+    <div id="abonnement-zone" class="mt-12"></div>
   </div>
 
   <!-- Script unique -->
   <script>
-  // --- zones cliquables (tribunes achetables / parcage non-achetable) ---
+  // --- zones cliquables ---
   function wireZones(matchId) {
     const obj = document.querySelector('object[type="image/svg+xml"]');
     if (!obj) return;
-
     obj.addEventListener('load', () => {
       const svg = obj.contentDocument;
       if (!svg) return;
-
-      // Tribunes vendues (adapte les slugs si tu veux)
       const zones = [
-        { id: 'tribune-honorez',   slug: 'boulanger' }, // ex: "Tribune Boulanger"
-        { id: 'tribune-coubertin', slug: 'ribery' },    // ex: "Tribune Franck Ribéry"
-        { id: 'tribune-ouest',     slug: 'ouest-b' }    // ex: "Tribune Ouest B"
+        { id: 'tribune-honorez', slug: 'boulanger' },
+        { id: 'tribune-coubertin', slug: 'ribery' },
+        { id: 'tribune-ouest', slug: 'ouest-b' }
       ];
-
       zones.forEach(z => {
         const el = svg.getElementById(z.id);
         if (!el) return;
         el.style.cursor = 'pointer';
-
-        // Hover simple (la couleur de fond du bloc est gérée par le SVG ; on surligne l'outline via filter)
-        el.addEventListener('mouseenter', () => {
-          el.style.filter = 'brightness(1.05)';
-        });
-        el.addEventListener('mouseleave', () => {
-          el.style.filter = 'none';
-        });
-
-        // Click → redirection billetterie zone
+        el.addEventListener('mouseenter', () => el.style.filter = 'brightness(1.05)');
+        el.addEventListener('mouseleave', () => el.style.filter = 'none');
         el.addEventListener('click', () => {
-          window.location.href = `https://ton-site-de-vente.com/${encodeURIComponent(matchId)}?zone=${encodeURIComponent(z.slug)}`;
+          document.getElementById("abonnement-zone").scrollIntoView({behavior:"smooth"});
+          document.getElementById("zone-select").value = z.slug;
         });
       });
-
-      // Parcage visiteurs : visible mais NON achetable
       const parcage = svg.getElementById('parcage-visiteurs');
       if (parcage) {
         parcage.style.cursor = 'not-allowed';
-        parcage.addEventListener('mouseenter', () => {
-          parcage.style.filter = 'brightness(1.05)';
-        });
-        parcage.addEventListener('mouseleave', () => {
-          parcage.style.filter = 'none';
-        });
-        parcage.addEventListener('click', () => {
-          alert("Parcage visiteurs : billetterie gérée par le club recevant. Non disponible ici.");
-        });
+        parcage.addEventListener('click', () => alert("Parcage visiteurs non disponible ici."));
       }
     });
   }
 
-  // --- helpers ---
   function byDate(a,b){ return new Date(a.dateISO) - new Date(b.dateISO); }
   function fmtTitle(m){ return m.home ? `USBCO vs ${m.opponent}` : `${m.opponent} vs USBCO`; }
   function fmtDate(d){ return d.toLocaleDateString("fr-FR",{weekday:"long",day:"2-digit",month:"long"}); }
   function fmtTime(d){ return d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}); }
 
-  // --- affichage billetterie ---
   async function loadBilletterie() {
     const box = document.getElementById("billetterie-content");
     const params = new URLSearchParams(window.location.search);
-    const matchParam = params.get("match"); // usbco-jX | next | next-home
-
+    const matchParam = params.get("match");
     try {
       const res = await fetch("./assets/fixtures.json", { cache: "no-store" });
       const data = (await res.json()) || [];
-      const fixtures = data
-        .map(m => ({...m, dateISO: m.dateISO || (m.date && m.time ? `${m.date}T${m.time}:00` : null)}))
-        .filter(m => m.dateISO);
+      const fixtures = data.map(m => ({...m, dateISO: m.dateISO || (m.date && m.time ? `${m.date}T${m.time}:00` : null)})).filter(m => m.dateISO);
 
-      // Si pas de param → liste des prochains matchs
       if (!matchParam) {
-        const upcoming = fixtures
-          .filter(m => new Date(m.dateISO) >= new Date())
-          .sort(byDate)
-          .slice(0, 10);
-
+        const upcoming = fixtures.filter(m => new Date(m.dateISO) >= new Date()).sort(byDate).slice(0, 10);
         box.innerHTML = `
           <h1 class="text-3xl font-bold text-red-700 mb-4">Billetterie — Sélectionnez un match</h1>
           <div class="grid gap-4">
-            ${
-              upcoming.map(m => {
-                const d = new Date(m.dateISO);
-                return `
-                  <a href="billetterie.html?match=${m.id}" class="block border rounded-lg p-4 bg-white shadow hover:shadow-lg transition">
-                    <div class="flex justify-between items-center">
-                      <div>
-                        <h2 class="font-bold text-xl text-red-700">${fmtTitle(m)}</h2>
-                        <p class="text-gray-700">${m.comp || 'Ligue 2 BKT'}</p>
-                        <p class="text-gray-600">${fmtDate(d)} — ${fmtTime(d)}</p>
-                        <p class="text-sm text-gray-500 mt-1">
-                          ${m.home ? "🏟️ Domicile — " + (m.venue || "Stade de la Libération")
-                                   : "🚌 Extérieur — " + (m.venue || "À déterminer")}
-                        </p>
-                      </div>
-                      <span class="px-3 py-1 border border-red-700 text-red-700 rounded">Choisir</span>
+            ${upcoming.map(m => {
+              const d = new Date(m.dateISO);
+              return `
+                <a href="billetterie.html?match=${m.id}" class="block border rounded-lg p-4 bg-white shadow hover:shadow-lg transition">
+                  <div class="flex justify-between items-center">
+                    <div>
+                      <h2 class="font-bold text-xl text-red-700">${fmtTitle(m)}</h2>
+                      <p class="text-gray-700">${m.comp || 'Ligue 2 BKT'}</p>
+                      <p class="text-gray-600">${fmtDate(d)} — ${fmtTime(d)}</p>
+                      <p class="text-sm text-gray-500 mt-1">${m.home ? "🏟️ Domicile — " + (m.venue||"Stade de la Libération") : "🚌 Extérieur — " + (m.venue||"À déterminer")}</p>
                     </div>
-                  </a>
-                `;
-              }).join("") || `<div class="text-gray-600">Aucun match à venir…</div>`
-            }
-          </div>
-        `;
+                    <span class="px-3 py-1 border border-red-700 text-red-700 rounded">Choisir</span>
+                  </div>
+                </a>
+              `;
+            }).join("")}
+          </div>`;
         return;
       }
 
-      // Modes spéciaux: next / next-home
-      let match = null;
-      if (matchParam === 'next' || matchParam === 'next-home') {
-        const sorted = fixtures.filter(m => new Date(m.dateISO) >= new Date()).sort(byDate);
-        const list = (matchParam === 'next-home') ? sorted.filter(m => m.home) : sorted;
-        match = list[0] || null;
-      } else {
-        match = fixtures.find(m => m.id === matchParam) || null;
-      }
-
-      if (!match) {
-        box.innerHTML = `<p class="text-gray-600">Match introuvable. <a class="text-red-700 underline" href="billetterie.html">Voir les prochains matchs</a></p>`;
-        return;
-      }
-
+      let match = fixtures.find(m => m.id === matchParam) || null;
+      if (!match) { box.innerHTML = `<p class="text-gray-600">Match introuvable.</p>`; return; }
       const d = new Date(match.dateISO);
       const title = fmtTitle(match);
-
-      // Visuel plan
       const visual = match.home
-        ? `<object type="image/svg+xml" data="./assets/stade-liberation.svg" class="w-full rounded-lg shadow mb-4" aria-label="Plan du Stade de la Libération"></object>`
-        : `<object type="image/svg+xml" data="./assets/parcage-visiteur.svg" class="w-full rounded-lg shadow mb-4" aria-label="Parcage visiteurs"></object>`;
-
-      // Lien billetterie (fallback si pas de buyUrl dans le JSON)
-      const href = match.buyUrl && match.buyUrl !== ''
-        ? match.buyUrl
-        : `https://ton-site-de-vente.com/${encodeURIComponent(match.id)}`;
+        ? `<object type="image/svg+xml" data="./assets/stade-liberation.svg" class="w-full rounded-lg shadow mb-4"></object>`
+        : `<object type="image/svg+xml" data="./assets/parcage-visiteur.svg" class="w-full rounded-lg shadow mb-4"></object>`;
 
       box.innerHTML = `
         <h1 class="text-3xl font-bold text-red-700 mb-2">${title}</h1>
-        <p class="text-gray-700">${match.comp || 'Ligue 2 BKT'}</p>
-        <p class="text-gray-700 mb-6">${fmtDate(d)} — ${fmtTime(d)}</p>
+        <p class="text-gray-700">${fmtDate(d)} — ${fmtTime(d)}</p>
         ${visual}
-        <a href="${href}" class="inline-block px-6 py-3 bg-red-700 text-white rounded-lg shadow hover:bg-red-800 transition">Réserver</a>
-        <div class="mt-6">
-          <a href="billetterie.html" class="text-sm text-red-700 underline">Ou choisir un autre match</a>
-        </div>
       `;
-
       if (match.home) wireZones(match.id);
-    } catch (e) {
-      console.error(e);
-      document.getElementById("billetterie-content").innerHTML = `<p class="text-gray-600">Erreur de chargement…</p>`;
-    }
+      renderAbonnementForm(title, d);
+    } catch(e){ box.innerHTML = `<p class="text-gray-600">Erreur chargement.</p>`; }
+  }
+
+  // --- Abonnement ---
+  function renderAbonnementForm(matchTitle, matchDate) {
+    const aboBox = document.getElementById("abonnement-zone");
+    aboBox.innerHTML = `
+      <h2 class="text-2xl font-bold text-red-700 mb-4">Prendre un abonnement</h2>
+      <form id="abo-form" class="space-y-4 bg-white p-4 rounded shadow">
+        <label class="block">Nom <input type="text" id="nom" required class="border p-2 w-full rounded"/></label>
+        <label class="block">Email <input type="email" id="email" required class="border p-2 w-full rounded"/></label>
+        <label class="block">Zone
+          <select id="zone-select" class="border p-2 w-full rounded">
+            <option value="ribery">Tribune Franck Ribéry</option>
+            <option value="boulanger">Tribune Boulanger</option>
+            <option value="ouest-b">Tribune Ouest B</option>
+          </select>
+        </label>
+        <button type="submit" class="px-4 py-2 bg-red-700 text-white rounded hover:bg-red-800">Valider</button>
+      </form>
+      <div id="abo-confirm" class="mt-4"></div>
+    `;
+
+    document.getElementById("abo-form").addEventListener("submit", e => {
+      e.preventDefault();
+      const nom = document.getElementById("nom").value;
+      const email = document.getElementById("email").value;
+      const zone = document.getElementById("zone-select").value;
+      const ref = "USBCO-" + Date.now();
+      const abo = { ref, nom, email, zone, match: matchTitle, date: matchDate.toLocaleString() };
+
+      // Stocker en localStorage
+      const hist = JSON.parse(localStorage.getItem("abos") || "[]");
+      hist.push(abo);
+      localStorage.setItem("abos", JSON.stringify(hist));
+
+      // Confirmation
+      document.getElementById("abo-confirm").innerHTML = `
+        <p class="text-green-700 font-bold">✅ Abonnement confirmé !</p>
+        <p>Référence : <b>${ref}</b></p>
+        <button onclick="downloadPDF('${ref}','${nom}','${zone}','${matchTitle}','${abo.date}')" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded">Télécharger reçu PDF</button>
+      `;
+    });
+  }
+
+  // --- Génération PDF ---
+  function downloadPDF(ref, nom, zone, match, date) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.setFontSize(18);
+    doc.text("USBCO - Confirmation Abonnement", 20, 20);
+    doc.setFontSize(12);
+    doc.text(`Référence: ${ref}`, 20, 40);
+    doc.text(`Nom: ${nom}`, 20, 50);
+    doc.text(`Zone: ${zone}`, 20, 60);
+    doc.text(`Match: ${match}`, 20, 70);
+    doc.text(`Date: ${date}`, 20, 80);
+    doc.save(`Abonnement-${ref}.pdf`);
   }
 
   loadBilletterie();
