@@ -1,84 +1,56 @@
 <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" aria-labelledby="title desc" role="img">
-  <title>Stade de la Libération — USBCO</title>
-  <desc>Plan stylisé et fidèle au Stade de la Libération avec tribunes, zones, et pelouse.</desc>
+  <title>Stade de la Libération — Visuel billetterie</title>
+  <desc>Terrain + piste, tribunes et parcage visiteurs ajusté (décalé à droite pour ne pas toucher).</desc>
 
   <!-- Fond -->
-  <rect x="0" y="0" width="1200" height="800" fill="#f4f4f5"/>
+  <rect width="1200" height="800" fill="#f6f7f9"/>
 
-  <!-- Pelouse -->
-  <rect x="250" y="150" width="700" height="500" fill="#5aa15a" stroke="#2f7f2f" stroke-width="4" rx="6"/>
-  <!-- Lignes de jeu -->
-  <rect x="250" y="150" width="700" height="500" fill="none" stroke="#ffffff" stroke-width="3" rx="6"/>
-  <line x1="600" y1="150" x2="600" y2="650" stroke="#ffffff" stroke-width="3"/>
-  <circle cx="600" cy="400" r="60" fill="none" stroke="#ffffff" stroke-width="3"/>
-  <circle cx="600" cy="400" r="2" fill="#ffffff"/>
+  <!-- ===================== TERRAIN + PISTE ===================== -->
+  <!-- Piste extérieure -->
+  <rect x="220" y="160" width="760" height="480" rx="120" ry="120" fill="#d9482b"/>
+  <rect x="260" y="200" width="680" height="400" rx="95" ry="95" fill="#f6f7f9"/>
+
+  <!-- Terrain -->
+  <rect x="260" y="200" width="680" height="400" rx="6" ry="6" fill="#157e33" stroke="#0f5f26" stroke-width="4"/>
+  <rect x="260" y="200" width="680" height="400" rx="6" ry="6" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <line x1="600" y1="200" x2="600" y2="600" stroke="#ffffff" stroke-width="3"/>
+  <circle cx="600" cy="400" r="58" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <circle cx="600" cy="400" r="3" fill="#ffffff"/>
 
   <!-- Surfaces -->
-  <!-- But gauche -->
-  <rect x="250" y="300" width="60" height="200" fill="none" stroke="#ffffff" stroke-width="3"/>
-  <rect x="250" y="220" width="180" height="360" fill="none" stroke="#ffffff" stroke-width="3"/>
-  <arc />
-  <!-- But droit -->
-  <rect x="890" y="300" width="60" height="200" fill="none" stroke="#ffffff" stroke-width="3"/>
-  <rect x="770" y="220" width="180" height="360" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <rect x="260" y="330" width="70" height="140" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <rect x="260" y="250" width="190" height="300" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <circle cx="430" cy="400" r="2.5" fill="#ffffff"/>
+  <rect x="870" y="330" width="70" height="140" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <rect x="750" y="250" width="190" height="300" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <circle cx="770" cy="400" r="2.5" fill="#ffffff"/>
 
-  <!-- Repères buts -->
-  <circle cx="420" cy="400" r="2" fill="#ffffff"/>
-  <circle cx="780" cy="400" r="2" fill="#ffffff"/>
+  <!-- ===================== TRIBUNES ===================== -->
+  <!-- Tribune Ribéry -->
+  <text x="600" y="60" text-anchor="middle" font-size="24" font-family="Inter, system-ui" fill="#111827">Tribune Ribéry</text>
+  <rect x="260" y="90" width="680" height="70" rx="10" ry="10" fill="#e11d48" stroke="#991b1b" stroke-width="2"/>
 
-  <!-- Tribunes (formes proches du réel : 4 côtés + virages plus courts) -->
-  <!-- Tribune HONOREZ (principale, côté bas) -->
-  <g id="tribune-honorez">
-    <rect x="240" y="660" width="720" height="80" rx="8" fill="#dcdfe3" stroke="#111827" stroke-width="2"/>
-    <text x="600" y="710" text-anchor="middle" font-size="22" font-family="Inter, system-ui" fill="#111827">Tribune Honorez (Principale)</text>
+  <!-- Tribune Boulanger -->
+  <rect x="260" y="640" width="680" height="70" rx="10" ry="10" fill="#e11d48" stroke="#991b1b" stroke-width="2"/>
+  <text x="600" y="740" text-anchor="middle" font-size="24" font-family="Inter, system-ui" fill="#111827">Tribune Boulanger</text>
+
+  <!-- Tribune Ouest B -->
+  <rect x="1000" y="210" width="90" height="380" rx="10" ry="10" fill="#0b0b0f" stroke="#1f2937" stroke-width="2"/>
+  <g transform="translate(1105,210)">
+    <text transform="rotate(90)" x="190" y="0" text-anchor="middle" font-size="24" font-family="Inter, system-ui" fill="#111827">Tribune Ouest B</text>
   </g>
 
-  <!-- Tribune COUBERTIN (latérale haute) -->
-  <g id="tribune-coubertin">
-    <rect x="240" y="60" width="720" height="80" rx="8" fill="#dcdfe3" stroke="#111827" stroke-width="2"/>
-    <text x="600" y="112" text-anchor="middle" font-size="22" font-family="Inter, system-ui" fill="#111827">Tribune Coubertin</text>
-  </g>
-
-  <!-- Tribune POPULAIRE (côté gauche, avec parcage en haut-gauche) -->
-  <g id="tribune-populaire">
-    <rect x="110" y="160" width="120" height="480" rx="8" fill="#dcdfe3" stroke="#111827" stroke-width="2"/>
-    <text transform="translate(135,400) rotate(-90)" text-anchor="middle" font-size="22" font-family="Inter, system-ui" fill="#111827">Populaire</text>
-  </g>
-
-  <!-- Tribune OUEST (côté droit) -->
-  <g id="tribune-ouest">
-    <rect x="970" y="160" width="120" height="480" rx="8" fill="#dcdfe3" stroke="#111827" stroke-width="2"/>
-    <text transform="translate(995,400) rotate(90)" text-anchor="middle" font-size="22" font-family="Inter, system-ui" fill="#111827">Ouest</text>
-  </g>
-
-  <!-- Virages (courts) -->
-  <!-- Virage Haut-Gauche (Parcage Visiteurs) -->
+  <!-- ===================== PARCAGE VISITEURS ===================== -->
   <g id="parcage-visiteurs">
-    <rect x="190" y="100" width="120" height="60" rx="8" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
-    <text x="250" y="135" text-anchor="middle" font-size="18" font-family="Inter, system-ui" fill="#b91c1c">Parcage visiteurs</text>
+    <!-- Décalé un peu à droite -->
+    <rect x="945" y="130" width="70" height="70" transform="rotate(45 980 165)" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3" rx="8" ry="8"/>
+    <text x="980" y="110" text-anchor="middle" font-size="16" font-family="Inter, system-ui" fill="#1d4ed8">Parcage visiteurs</text>
   </g>
 
-  <!-- Virage Haut-Droit -->
-  <g id="virage-haut-droit">
-    <rect x="890" y="100" width="120" height="60" rx="8" fill="#e5e7eb" stroke="#111827" stroke-width="2"/>
-  </g>
-
-  <!-- Virage Bas-Gauche -->
-  <g id="virage-bas-gauche">
-    <rect x="190" y="740" width="120" height="30" rx="6" fill="#e5e7eb" stroke="#111827" stroke-width="2"/>
-  </g>
-
-  <!-- Virage Bas-Droit -->
-  <g id="virage-bas-droit">
-    <rect x="890" y="740" width="120" height="30" rx="6" fill="#e5e7eb" stroke="#111827" stroke-width="2"/>
-  </g>
-
-  <!-- Légende simple -->
-  <g id="legende">
-    <rect x="40" y="40" width="260" height="120" rx="10" fill="#ffffff" stroke="#e5e7eb"/>
-    <circle cx="70" cy="80" r="8" fill="#dcdfe3" stroke="#111827"/>
-    <text x="90" y="85" font-size="16" font-family="Inter, system-ui" fill="#111827">Tribune</text>
-    <rect x="60" y="100" width="20" height="12" fill="#fee2e2" stroke="#b91c1c"/>
-    <text x="90" y="110" font-size="16" font-family="Inter, system-ui" fill="#111827">Parcage visiteurs</text>
+  <!-- Ombres légères -->
+  <g opacity="0.08">
+    <rect x="260" y="90"  width="680" height="70" rx="10" ry="10" fill="#000"/>
+    <rect x="260" y="640" width="680" height="70" rx="10" ry="10" fill="#000"/>
+    <rect x="1000" y="210" width="90"  height="380" rx="10" ry="10" fill="#000"/>
   </g>
 </svg>
