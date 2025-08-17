@@ -14,7 +14,43 @@
     <div id="billetterie-content" class="mt-6"></div>
   </div>
 
+  <!-- Script unique -->
   <script>
+  // --- zones cliquables ---
+  function wireZones(matchId) {
+    const obj = document.querySelector('object[type="image/svg+xml"]');
+    if (!obj) return;
+
+    obj.addEventListener('load', () => {
+      const svg = obj.contentDocument;
+      const zones = [
+        { id: 'tribune-honorez',   slug: 'honorez' },
+        { id: 'tribune-coubertin', slug: 'coubertin' },
+        { id: 'tribune-populaire', slug: 'populaire' },
+        { id: 'tribune-ouest',     slug: 'ouest' },
+        { id: 'parcage-visiteurs', slug: 'parcage' }
+      ];
+
+      zones.forEach(z => {
+        const el = svg.getElementById(z.id);
+        if (!el) return;
+        el.style.cursor = 'pointer';
+
+        el.addEventListener('mouseenter', () => {
+          el.setAttribute('fill', '#fca5a5');
+        });
+        el.addEventListener('mouseleave', () => {
+          el.setAttribute('fill', z.id === 'parcage-visiteurs' ? '#fee2e2' : '#dcdfe3');
+        });
+
+        el.addEventListener('click', () => {
+          window.location.href = `https://ton-site-de-vente.com/${encodeURIComponent(matchId)}?zone=${encodeURIComponent(z.slug)}`;
+        });
+      });
+    });
+  }
+
+  // --- affichage billetterie par match ---
   async function loadBilletterie() {
     const params = new URLSearchParams(window.location.search);
     const matchId = params.get("match");
@@ -30,28 +66,36 @@
         return;
       }
 
+      const d = new Date(match.dateISO);
       const title = match.home ? `USBCO vs ${match.opponent}` : `${match.opponent} vs USBCO`;
-      let content = `
-        <h1 class="text-3xl font-bold text-red-700 mb-4">${title}</h1>
-        <p class="text-gray-700 mb-2">${match.comp}</p>
-        <p class="text-gray-700 mb-6">${new Date(match.dateISO).toLocaleDateString("fr-FR",{weekday:"long",day:"2-digit",month:"long"})} — ${new Date(match.dateISO).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}</p>
+
+      const header = `
+        <h1 class="text-3xl font-bold text-red-700 mb-2">${title}</h1>
+        <p class="text-gray-700">${match.comp || 'Ligue 2 BKT'}</p>
+        <p class="text-gray-700 mb-6">
+          ${d.toLocaleDateString("fr-FR",{weekday:"long",day:"2-digit",month:"long"})}
+          — ${d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}
+        </p>
       `;
 
-      if (match.home) {
-        content += `
-          <p class="mb-4">Choisissez votre place au <b>Stade de la Libération</b> :</p>
-          <img src="./assets/stade-plan.png" alt="Plan Stade de la Libération" class="w-full rounded-lg shadow mb-6"/>
-          <a href="https://ton-site-de-vente.com/${match.id}" class="inline-block px-6 py-3 bg-red-700 text-white rounded-lg shadow hover:bg-red-800 transition">Réserver</a>
-        `;
-      } else {
-        content += `
-          <p class="mb-4">Billets uniquement disponibles pour le <b>parcage visiteurs</b>.</p>
-          <img src="./assets/parcage-visiteur.png" alt="Parcage visiteurs" class="w-full rounded-lg shadow mb-6"/>
-          <a href="https://ton-site-de-vente.com/${match.id}" class="inline-block px-6 py-3 bg-red-700 text-white rounded-lg shadow hover:bg-red-800 transition">Réserver</a>
-        `;
-      }
+      const visual = match.home
+        ? `<object type="image/svg+xml" data="./assets/stade-liberation.svg" class="w-full rounded-lg shadow mb-4" aria-label="Plan du Stade de la Libération"></object>`
+        : `<object type="image/svg+xml" data="./assets/parcage-visiteur.svg" class="w-full rounded-lg shadow mb-4" aria-label="Parcage visiteurs"></object>`;
 
-      box.innerHTML = content;
+      const href = match.buyUrl && match.buyUrl !== ''
+        ? match.buyUrl
+        : `https://ton-site-de-vente.com/${encodeURIComponent(match.id)}`;
+
+      const cta = `
+        <a href="${href}"
+           class="inline-block px-6 py-3 bg-red-700 text-white rounded-lg shadow hover:bg-red-800 transition">
+           Réserver
+        </a>
+      `;
+
+      box.innerHTML = header + visual + cta;
+
+      if (match.home) wireZones(match.id);
     } catch (e) {
       console.error(e);
       document.getElementById("billetterie-content").innerHTML = `<p class="text-gray-600">Erreur de chargement…</p>`;
@@ -59,97 +103,5 @@
   }
   loadBilletterie();
   </script>
-  <script>
-async function loadBilletterie() {
-  const params = new URLSearchParams(window.location.search);
-  const matchId = params.get("match");
-
-  try {
-    const res = await fetch("./assets/fixtures.json", { cache: "no-store" });
-    const data = await res.json();
-    const match = data.find(m => m.id === matchId);
-
-    const box = document.getElementById("billetterie-content");
-    if (!match) {
-      box.innerHTML = `<p class="text-gray-600">Match introuvable.</p>`;
-      return;
-    }
-
-    const d = new Date(match.dateISO);
-    const title = match.home ? `USBCO vs ${match.opponent}` : `${match.opponent} vs USBCO`;
-
-    // Header
-    let header = `
-      <h1 class="text-3xl font-bold text-red-700 mb-2">${title}</h1>
-      <p class="text-gray-700">${match.comp}</p>
-      <p class="text-gray-700 mb-6">${d.toLocaleDateString("fr-FR",{weekday:"long",day:"2-digit",month:"long"})} — ${d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}</p>
-    `;
-
-    // Plan stade / parcage
-    let visual = match.home
-      ? `<object type="image/svg+xml" data="./assets/stade-liberation.svg" class="w-full rounded-lg shadow mb-4" aria-label="Plan du Stade de la Libération"></object>`
-      : `<object type="image/svg+xml" data="./assets/parcage-visiteur.svg" class="w-full rounded-lg shadow mb-4" aria-label="Parcage visiteurs"></object>`;
-
-    // Bouton Réserver
-    let cta = `
-      <a href="${match.buyUrl && match.buyUrl !== '' ? match.buyUrl : `https://ton-site-de-vente.com/${match.id}`}"
-         class="inline-block px-6 py-3 bg-red-700 text-white rounded-lg shadow hover:bg-red-800 transition">
-         Réserver
-      </a>
-    `;
-
-    box.innerHTML = header + visual + cta;
-
-    // Active les zones cliquables si c'est un match à domicile
-    if (match.home) {
-      wireZones(match.id);
-    }
-  } catch (e) {
-    console.error(e);
-    document.getElementById("billetterie-content").innerHTML = `<p class="text-gray-600">Erreur de chargement…</p>`;
-  }
-}
-loadBilletterie();
-</script>
-  <script>
-function wireZones(matchId) {
-  const obj = document.querySelector('object[type="image/svg+xml"]');
-  if (!obj) return;
-
-  obj.addEventListener('load', () => {
-    const svg = obj.contentDocument;
-    const zones = [
-      { id: 'tribune-honorez', slug: 'honorez' },
-      { id: 'tribune-coubertin', slug: 'coubertin' },
-      { id: 'tribune-populaire', slug: 'populaire' },
-      { id: 'tribune-ouest', slug: 'ouest' },
-      { id: 'parcage-visiteurs', slug: 'parcage' }
-    ];
-
-    zones.forEach(z => {
-      const el = svg.getElementById(z.id);
-      if (!el) return;
-      el.style.cursor = 'pointer';
-
-      // Hover style
-      el.addEventListener('mouseenter', () => {
-        el.setAttribute('fill', '#fca5a5');
-      });
-      el.addEventListener('mouseleave', () => {
-        if (z.id === 'parcage-visiteurs') {
-          el.setAttribute('fill', '#fee2e2'); // parcage rouge clair
-        } else {
-          el.setAttribute('fill', '#dcdfe3'); // tribunes gris clair
-        }
-      });
-
-      // Click → redirection vers billetterie zone spécifique
-      el.addEventListener('click', () => {
-        window.location.href = `https://ton-site-de-vente.com/${matchId}?zone=${z.slug}`;
-      });
-    });
-  });
-}
-</script>
 </body>
 </html>
