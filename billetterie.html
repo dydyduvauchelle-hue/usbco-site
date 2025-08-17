@@ -16,29 +16,55 @@
 
   <!-- Script unique -->
   <script>
-  // --- zones cliquables ---
+  // --- zones cliquables (tribunes achetables / parcage non-achetable) ---
   function wireZones(matchId) {
     const obj = document.querySelector('object[type="image/svg+xml"]');
     if (!obj) return;
+
     obj.addEventListener('load', () => {
       const svg = obj.contentDocument;
+      if (!svg) return;
+
+      // Tribunes vendues (adapte les slugs si tu veux)
       const zones = [
-        { id: 'tribune-honorez',   slug: 'honorez' },
-        { id: 'tribune-coubertin', slug: 'coubertin' },
-        { id: 'tribune-populaire', slug: 'populaire' },
-        { id: 'tribune-ouest',     slug: 'ouest' },
-        { id: 'parcage-visiteurs', slug: 'parcage' }
+        { id: 'tribune-honorez',   slug: 'boulanger' }, // ex: "Tribune Boulanger"
+        { id: 'tribune-coubertin', slug: 'ribery' },    // ex: "Tribune Franck Ribéry"
+        { id: 'tribune-ouest',     slug: 'ouest-b' }    // ex: "Tribune Ouest B"
       ];
+
       zones.forEach(z => {
         const el = svg.getElementById(z.id);
         if (!el) return;
         el.style.cursor = 'pointer';
-        el.addEventListener('mouseenter', () => el.setAttribute('fill', '#fca5a5'));
-        el.addEventListener('mouseleave', () => el.setAttribute('fill', z.id === 'parcage-visiteurs' ? '#fee2e2' : '#dcdfe3'));
+
+        // Hover simple (la couleur de fond du bloc est gérée par le SVG ; on surligne l'outline via filter)
+        el.addEventListener('mouseenter', () => {
+          el.style.filter = 'brightness(1.05)';
+        });
+        el.addEventListener('mouseleave', () => {
+          el.style.filter = 'none';
+        });
+
+        // Click → redirection billetterie zone
         el.addEventListener('click', () => {
           window.location.href = `https://ton-site-de-vente.com/${encodeURIComponent(matchId)}?zone=${encodeURIComponent(z.slug)}`;
         });
       });
+
+      // Parcage visiteurs : visible mais NON achetable
+      const parcage = svg.getElementById('parcage-visiteurs');
+      if (parcage) {
+        parcage.style.cursor = 'not-allowed';
+        parcage.addEventListener('mouseenter', () => {
+          parcage.style.filter = 'brightness(1.05)';
+        });
+        parcage.addEventListener('mouseleave', () => {
+          parcage.style.filter = 'none';
+        });
+        parcage.addEventListener('click', () => {
+          alert("Parcage visiteurs : billetterie gérée par le club recevant. Non disponible ici.");
+        });
+      }
     });
   }
 
@@ -52,7 +78,7 @@
   async function loadBilletterie() {
     const box = document.getElementById("billetterie-content");
     const params = new URLSearchParams(window.location.search);
-    const matchParam = params.get("match");
+    const matchParam = params.get("match"); // usbco-jX | next | next-home
 
     try {
       const res = await fetch("./assets/fixtures.json", { cache: "no-store" });
@@ -61,28 +87,37 @@
         .map(m => ({...m, dateISO: m.dateISO || (m.date && m.time ? `${m.date}T${m.time}:00` : null)}))
         .filter(m => m.dateISO);
 
-      // Aucun param → afficher les 10 prochains matchs
+      // Si pas de param → liste des prochains matchs
       if (!matchParam) {
-        const upcoming = fixtures.filter(m => new Date(m.dateISO) >= new Date()).sort(byDate).slice(0, 10);
+        const upcoming = fixtures
+          .filter(m => new Date(m.dateISO) >= new Date())
+          .sort(byDate)
+          .slice(0, 10);
+
         box.innerHTML = `
           <h1 class="text-3xl font-bold text-red-700 mb-4">Billetterie — Sélectionnez un match</h1>
           <div class="grid gap-4">
-            ${upcoming.map(m => {
-              const d = new Date(m.dateISO);
-              return `
-                <a href="billetterie.html?match=${m.id}" class="block border rounded-lg p-4 bg-white shadow hover:shadow-lg transition">
-                  <div class="flex justify-between items-center">
-                    <div>
-                      <h2 class="font-bold text-xl text-red-700">${fmtTitle(m)}</h2>
-                      <p class="text-gray-700">${m.comp || 'Ligue 2 BKT'}</p>
-                      <p class="text-gray-600">${fmtDate(d)} — ${fmtTime(d)}</p>
-                      <p class="text-sm text-gray-500 mt-1">${m.home ? "🏟️ Domicile — " + (m.venue||"Stade de la Libération") : "🚌 Extérieur — " + (m.venue||"À déterminer")}</p>
+            ${
+              upcoming.map(m => {
+                const d = new Date(m.dateISO);
+                return `
+                  <a href="billetterie.html?match=${m.id}" class="block border rounded-lg p-4 bg-white shadow hover:shadow-lg transition">
+                    <div class="flex justify-between items-center">
+                      <div>
+                        <h2 class="font-bold text-xl text-red-700">${fmtTitle(m)}</h2>
+                        <p class="text-gray-700">${m.comp || 'Ligue 2 BKT'}</p>
+                        <p class="text-gray-600">${fmtDate(d)} — ${fmtTime(d)}</p>
+                        <p class="text-sm text-gray-500 mt-1">
+                          ${m.home ? "🏟️ Domicile — " + (m.venue || "Stade de la Libération")
+                                   : "🚌 Extérieur — " + (m.venue || "À déterminer")}
+                        </p>
+                      </div>
+                      <span class="px-3 py-1 border border-red-700 text-red-700 rounded">Choisir</span>
                     </div>
-                    <span class="px-3 py-1 border border-red-700 text-red-700 rounded">Choisir</span>
-                  </div>
-                </a>
-              `;
-            }).join("") || `<div class="text-gray-600">Aucun match à venir…</div>`}
+                  </a>
+                `;
+              }).join("") || `<div class="text-gray-600">Aucun match à venir…</div>`
+            }
           </div>
         `;
         return;
@@ -92,7 +127,7 @@
       let match = null;
       if (matchParam === 'next' || matchParam === 'next-home') {
         const sorted = fixtures.filter(m => new Date(m.dateISO) >= new Date()).sort(byDate);
-        const list = matchParam === 'next-home' ? sorted.filter(m => m.home) : sorted;
+        const list = (matchParam === 'next-home') ? sorted.filter(m => m.home) : sorted;
         match = list[0] || null;
       } else {
         match = fixtures.find(m => m.id === matchParam) || null;
@@ -105,10 +140,13 @@
 
       const d = new Date(match.dateISO);
       const title = fmtTitle(match);
+
+      // Visuel plan
       const visual = match.home
         ? `<object type="image/svg+xml" data="./assets/stade-liberation.svg" class="w-full rounded-lg shadow mb-4" aria-label="Plan du Stade de la Libération"></object>`
         : `<object type="image/svg+xml" data="./assets/parcage-visiteur.svg" class="w-full rounded-lg shadow mb-4" aria-label="Parcage visiteurs"></object>`;
 
+      // Lien billetterie (fallback si pas de buyUrl dans le JSON)
       const href = match.buyUrl && match.buyUrl !== ''
         ? match.buyUrl
         : `https://ton-site-de-vente.com/${encodeURIComponent(match.id)}`;
@@ -127,9 +165,10 @@
       if (match.home) wireZones(match.id);
     } catch (e) {
       console.error(e);
-      box.innerHTML = `<p class="text-gray-600">Erreur de chargement…</p>`;
+      document.getElementById("billetterie-content").innerHTML = `<p class="text-gray-600">Erreur de chargement…</p>`;
     }
   }
+
   loadBilletterie();
   </script>
 </body>
