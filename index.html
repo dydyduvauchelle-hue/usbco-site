@@ -5,109 +5,123 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>US Boulogne Côte d’Opale — Site officiel</title>
   <meta name="description" content="Site officiel de l’USBCO : actualités, matchs, billetterie et boutique.">
-  <link rel="stylesheet" href="styles.css">
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 text-gray-900">
 
   <!-- HEADER -->
-  <header>
-    <div class="container header-content">
-      <img src="assets/logo.png" alt="Logo USBCO" class="logo">
+  <header class="bg-black text-white sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
+      <!-- Logo -->
+      <img src="assets/logo.png" alt="Logo USBCO" class="h-12">
+      <!-- Menu -->
       <nav>
-        <ul class="nav-links">
-          <li><a href="index.html" class="active">Accueil</a></li>
-          <li><a href="matchs.html">Matchs</a></li>
-          <li><a href="actus.html">Actualités</a></li>
-          <li><a href="billetterie.html">Billetterie</a></li>
-          <li><a href="boutique.html">Boutique</a></li>
-          <li><a href="club.html">Le club</a></li>
+        <ul class="flex space-x-6 font-semibold">
+          <li><a href="index.html" class="text-red-600">Accueil</a></li>
+          <li><a href="matchs.html" class="hover:text-red-600">Matchs</a></li>
+          <li><a href="actus.html" class="hover:text-red-600">Actualités</a></li>
+          <li><a href="billetterie.html" class="hover:text-red-600">Billetterie</a></li>
+          <li><a href="boutique.html" class="hover:text-red-600">Boutique</a></li>
+          <li><a href="club.html" class="hover:text-red-600">Le club</a></li>
         </ul>
       </nav>
-      <a href="billetterie.html" class="btn-cta">Billetterie</a>
+      <!-- CTA -->
+      <a href="billetterie.html" class="bg-red-600 px-4 py-2 rounded text-white hover:bg-red-700">
+        Billetterie
+      </a>
     </div>
   </header>
 
   <!-- HERO -->
-  <section class="hero">
-    <div class="hero-text">
-      <h1>US Boulogne Côte d’Opale</h1>
-      <p>Allez l’USBCO !</p>
-      <div class="hero-buttons">
-        <a href="matchs.html" class="btn">⚽ Prochain Match</a>
-        <a href="billetterie.html" class="btn btn-outline">🎟 Billetterie</a>
+  <section class="relative bg-cover bg-center h-[70vh]" style="background-image:url('assets/hero.jpg')">
+    <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center text-white">
+      <h1 class="text-4xl md:text-6xl font-bold">US Boulogne Côte d’Opale</h1>
+      <p class="mt-4 text-xl">Allez l’USBCO !</p>
+      <div class="mt-6 space-x-4">
+        <a href="matchs.html" class="bg-red-600 px-6 py-3 rounded text-white font-bold hover:bg-red-700">⚽ Prochain Match</a>
+        <a href="billetterie.html" class="border-2 border-white px-6 py-3 rounded font-bold hover:bg-white hover:text-black">🎟 Billetterie</a>
       </div>
     </div>
   </section>
 
   <!-- MATCHS -->
-  <section class="matchs">
-    <div class="container">
-      <h2>📅 Matchs à venir</h2>
-      <div class="cards">
-        <div class="card">
-          <h3>USBCO vs Lens B</h3>
-          <p>Samedi 15 Septembre — Stade de la Libération</p>
-          <a href="billetterie.html" class="btn-small">Billetterie</a>
-        </div>
-        <div class="card">
-          <h3>USBCO vs Red Star</h3>
-          <p>Dimanche 22 Septembre — Extérieur</p>
-          <a href="billetterie.html" class="btn-small">Billetterie</a>
-        </div>
+  <section class="py-16 max-w-6xl mx-auto px-6">
+    <h2 class="text-3xl font-bold mb-8">📅 Matchs à venir</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-white shadow rounded p-6">
+        <h3 class="font-bold text-xl mb-2">USBCO vs Lens B</h3>
+        <p class="mb-4">Samedi 15 Septembre — Stade de la Libération</p>
+        <a href="billetterie.html" class="bg-black text-white px-4 py-2 rounded hover:bg-gray-800">Billetterie</a>
       </div>
-      <a href="matchs.html" class="btn">Voir tout le calendrier</a>
+      <div class="bg-white shadow rounded p-6">
+        <h3 class="font-bold text-xl mb-2">USBCO vs Red Star</h3>
+        <p class="mb-4">Dimanche 22 Septembre — Extérieur</p>
+        <a href="billetterie.html" class="bg-black text-white px-4 py-2 rounded hover:bg-gray-800">Billetterie</a>
+      </div>
+    </div>
+    <div class="mt-6">
+      <a href="matchs.html" class="bg-red-600 text-white px-6 py-3 rounded font-bold hover:bg-red-700">Voir tout le calendrier</a>
     </div>
   </section>
 
   <!-- ACTUALITES -->
-  <section class="actus">
-    <div class="container">
-      <h2>📰 Dernières actualités</h2>
-      <div class="cards">
-        <article class="card">
-          <img src="assets/hero.jpg" alt="Actu 1">
-          <h3>Victoire face à Dunkerque !</h3>
-          <p>L’USBCO s’impose 2-1 dans un match intense...</p>
+  <section class="py-16 bg-gray-200">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl font-bold mb-8">📰 Dernières actualités</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <article class="bg-white shadow rounded overflow-hidden">
+          <img src="assets/hero.jpg" alt="Actu 1" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="font-bold text-lg mb-2">Victoire face à Dunkerque !</h3>
+            <p>L’USBCO s’impose 2-1 dans un match intense...</p>
+          </div>
         </article>
-        <article class="card">
-          <img src="assets/hero.jpg" alt="Actu 2">
-          <h3>Nouveau maillot 25/26</h3>
-          <p>Découvrez le nouveau kit officiel de la saison...</p>
+        <article class="bg-white shadow rounded overflow-hidden">
+          <img src="assets/hero.jpg" alt="Actu 2" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="font-bold text-lg mb-2">Nouveau maillot 25/26</h3>
+            <p>Découvrez le nouveau kit officiel de la saison...</p>
+          </div>
         </article>
       </div>
-      <a href="actus.html" class="btn">Toutes les actus</a>
+      <div class="mt-6">
+        <a href="actus.html" class="bg-red-600 text-white px-6 py-3 rounded font-bold hover:bg-red-700">Toutes les actus</a>
+      </div>
     </div>
   </section>
 
   <!-- BOUTIQUE -->
-  <section class="boutique">
-    <div class="container">
-      <h2>🛒 Boutique officielle</h2>
-      <div class="cards">
-        <div class="card">
-          <img src="assets/produits/maillot-domicile.jpg" alt="Maillot domicile">
-          <h3>Maillot domicile 25/26</h3>
-          <a href="boutique.html" class="btn-small">Acheter</a>
+  <section class="py-16 max-w-6xl mx-auto px-6">
+    <h2 class="text-3xl font-bold mb-8">🛒 Boutique officielle</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-white shadow rounded overflow-hidden">
+        <img src="assets/produits/maillot-domicile.jpg" alt="Maillot domicile" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <h3 class="font-bold text-lg mb-2">Maillot domicile 25/26</h3>
+          <a href="boutique.html" class="bg-black text-white px-4 py-2 rounded hover:bg-gray-800">Acheter</a>
         </div>
-        <div class="card">
-          <img src="assets/produits/echarpe.jpg" alt="Écharpe">
-          <h3>Écharpe USBCO</h3>
-          <a href="boutique.html" class="btn-small">Acheter</a>
+      </div>
+      <div class="bg-white shadow rounded overflow-hidden">
+        <img src="assets/produits/echarpe.jpg" alt="Écharpe USBCO" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <h3 class="font-bold text-lg mb-2">Écharpe USBCO</h3>
+          <a href="boutique.html" class="bg-black text-white px-4 py-2 rounded hover:bg-gray-800">Acheter</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer>
-    <div class="container footer-content">
-      <img src="assets/logo.png" alt="Logo USBCO" class="logo-footer">
+  <footer class="bg-black text-white py-10">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <img src="assets/logo.png" alt="Logo USBCO" class="h-12 mx-auto mb-4">
       <p>© 2025 US Boulogne Côte d’Opale. Tous droits réservés.</p>
-      <div class="socials">
-        <a href="#">Facebook</a>
-        <a href="#">X</a>
-        <a href="#">Instagram</a>
-        <a href="#">YouTube</a>
+      <div class="mt-4 space-x-4">
+        <a href="#" class="hover:text-red-600">Facebook</a>
+        <a href="#" class="hover:text-red-600">X</a>
+        <a href="#" class="hover:text-red-600">Instagram</a>
+        <a href="#" class="hover:text-red-600">YouTube</a>
       </div>
     </div>
   </footer>
